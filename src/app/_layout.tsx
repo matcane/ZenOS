@@ -1,4 +1,4 @@
-import { Slot, useSegments } from "expo-router";
+import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as StatusBarSettings from "expo-status-bar";
 import { useEffect, useState } from "react";
@@ -35,9 +35,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const segments = useSegments();
-  console.log(segments);
-
   useEffect(() => {
     const hideSplashScreen = async () => {
       setTimeout(async () => await SplashScreen.hideAsync(), 2000);

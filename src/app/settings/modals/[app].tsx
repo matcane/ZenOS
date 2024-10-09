@@ -12,7 +12,6 @@ export default function Page() {
   const appList = [...apps, ...pinned_apps];
 
   const app = appList.find((app) => app.slug === slug);
-  console.log(app);
 
   if (!app) return null;
 

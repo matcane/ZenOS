@@ -25,7 +25,6 @@ export default function NavigationBar() {
   };
 
   const backNavigation = () => {
-    console.log(router.canGoBack());
     router.back();
   };
   return (
