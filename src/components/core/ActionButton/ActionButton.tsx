@@ -1,53 +1,37 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
+import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 
-import { useThemeColor } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks/core";
+import { baseStyle } from "@/styles/baseStyle";
+import { coreStyles } from "@/styles/core";
 
-type IconName = "play" | "pause" | "repeat";
+const { sizeMD, sizeLG, sizeXL } = baseStyle;
+const { actionButton } = coreStyles;
 
-export default function FloatingButton({
-  type,
-  active,
-  icon,
-  style,
-  fn,
-}: {
-  type: "primary" | "secondary";
+type TIconName = "play" | "pause" | "repeat";
+type TVariants = "primary" | "secondary";
+
+type ActionButtonProps = {
+  variant: TVariants;
   active: boolean;
-  icon: IconName;
+  iconName: TIconName;
   style: StyleProp<ViewStyle>;
   fn: () => void;
-}) {
-  const theme = useThemeColor();
-  const button_size = type === "primary" ? 60 : 50;
-  const icon_size = type === "primary" ? 44 : 32;
-  const backgroudColor = type === "primary" ? theme.primary : theme.container;
+};
+
+export default function ActionButton({ variant, active, iconName, style, fn }: ActionButtonProps) {
+  const theme = useTheme();
+  const buttonSize = variant === "primary" ? sizeXL : sizeLG;
+  const iconSize = variant === "primary" ? sizeLG : sizeMD;
+  const backgroudColor = variant === "primary" ? theme.primary : theme.container;
 
   if (!active) return null;
 
   return (
     <TouchableOpacity
       onPress={active && fn}
-      style={[
-        styles.button,
-        { backgroundColor: backgroudColor, width: button_size, height: button_size },
-        style,
-      ]}>
-      <MaterialCommunityIcons name={icon} size={icon_size} color="white" />
+      style={[actionButton, buttonSize, { backgroundColor: backgroudColor }, style]}>
+      <MaterialCommunityIcons name={iconName} size={iconSize.height} color="white" />
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    position: "absolute",
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-  },
-});

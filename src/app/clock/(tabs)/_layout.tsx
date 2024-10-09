@@ -1,10 +1,10 @@
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { Tabs } from "expo-router";
 
-import { useThemeColor } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks/core";
 
-export default function CalcLayout() {
-  const theme = useThemeColor();
+export default function ClockTabs() {
+  const theme = useTheme();
   return (
     <Tabs
       screenOptions={{

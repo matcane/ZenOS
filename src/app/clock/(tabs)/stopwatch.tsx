@@ -1,32 +1,33 @@
-import { View } from "react-native";
+import { ActionButton, ThemedText, ThemedView } from "@/components/core";
+import { useTimer } from "@/hooks/core";
+import { baseStyle } from "@/styles/baseStyle";
+import { coreStyles } from "@/styles/core";
 
-import { ActionButton, ThemedText } from "@/components/core";
-import { useThemeColor } from "@/hooks/useTheme";
-import { useTimer } from "@/hooks/useTimer";
+const { paddingTopXXL, fontXL, textCenter, flexGrow } = baseStyle;
+const { stopwatchStartStop, stopwatchReset } = coreStyles;
 
 export default function Page() {
-  const theme = useThemeColor();
   const { time, timer, isRunning, toggleTimer, resetTimer } = useTimer();
 
   const primaryIcon = isRunning ? "pause" : "play";
 
   return (
-    <View style={{ flex: 1, paddingTop: 40, backgroundColor: theme.background }}>
-      <ThemedText style={{ fontSize: 64, textAlign: "center", flex: 1 }}>{timer}</ThemedText>
+    <ThemedView style={[flexGrow, paddingTopXXL]}>
+      <ThemedText style={[fontXL, textCenter]}>{timer}</ThemedText>
       <ActionButton
         active={true}
-        style={{ right: "50%", marginRight: -30, bottom: 0, marginBottom: 30 }}
-        icon={primaryIcon}
-        type="primary"
         fn={toggleTimer}
+        variant="primary"
+        iconName={primaryIcon}
+        style={stopwatchStartStop}
       />
       <ActionButton
-        active={time !== 0}
-        style={{ right: "25%", marginRight: -20, bottom: 0, marginBottom: 35 }}
-        icon={"repeat"}
-        type="secondary"
+        iconName={"repeat"}
         fn={resetTimer}
+        variant="secondary"
+        active={time !== 0}
+        style={stopwatchReset}
       />
-    </View>
+    </ThemedView>
   );
 }

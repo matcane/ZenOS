@@ -11,18 +11,19 @@ type TNavigationBar = {
   dark: { backgroundColor: string };
 };
 
-export type TApps = {
+export type TApp = {
   name: string;
   slug: string;
   version: string;
   icon: string;
   navigationBar?: TNavigationBar;
 };
-export const apps = [settings, calc, clock];
 
-export const pinned_apps = [phone, messages, chrome, camera];
+export const APPS = [settings, calc, clock];
 
-export const appsIcon: Record<string, any> = {
+export const PINNED_APPS = [phone, messages, chrome, camera];
+
+export const APPS_ICON: Record<string, any> = {
   "@assets/icons/icons8-settings.webp": require("@assets/icons/icons8-settings.webp"),
   "@assets/icons/icons8-calculator.webp": require("@assets/icons/icons8-calculator.webp"),
   "@assets/icons/icons8-clock.webp": require("@assets/icons/icons8-clock.webp"),
@@ -32,7 +33,7 @@ export const appsIcon: Record<string, any> = {
   "@assets/icons/icons8-camera.webp": require("@assets/icons/icons8-camera.webp"),
 };
 
-export const appsIconSource: Record<string, any> = {
+export const APPS_ICON_SOURCE: Record<string, any> = {
   "@assets/icons/icons8-settings.webp": "https://icons8.com/icon/4UC7V4crVOgk/settings",
   "@assets/icons/icons8-calculator.webp": "https://icons8.com/icon/w8uA2lyOFNbd/calculator",
   "@assets/icons/icons8-clock.webp": "https://icons8.com/icon/kZYJCScZSxUH/clock",

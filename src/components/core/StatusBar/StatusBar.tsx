@@ -1,46 +1,36 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useSegments } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
-import { useThemeColor } from "@/hooks/useTheme";
-import { useTime } from "@/hooks/useTime";
-import useThemeStore from "@/store/themeStore";
+import { useTheme, useTime } from "@/hooks/core";
+import { useThemeStore } from "@/store/core";
+import { coreStyles } from "@/styles/core";
 import { Colors } from "@/theme";
 
 import ThemedText from "../ThemedText/ThemedText";
 
+const { statusBarContainer, statusBarIcons } = coreStyles;
+
 export default function StatusBar() {
   const { currentTime } = useTime();
 
-  const theme = useThemeColor();
+  const ICON_SIZE = 20;
+
+  const theme = useTheme();
   const segments = useSegments();
   const statusBarColor = useThemeStore((state) => state.statusBarColor);
 
-  const bg = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
-  const icons = segments.length > 0 ? theme.text : Colors.dark.text;
+  const backgroundColor = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
+  const color = segments.length > 0 ? theme.text : Colors.dark.text;
+
   return (
-    <View style={[styles.container, bg]}>
-      <ThemedText style={{ color: icons }}>{currentTime}</ThemedText>
-      <View style={styles.icons}>
-        <Feather name="wifi" size={20} color={icons} />
-        <Feather name="bar-chart" size={20} color={icons} />
-        <Feather name="battery" size={20} color={icons} />
+    <View style={[statusBarContainer, backgroundColor]}>
+      <ThemedText style={{ color: color }}>{currentTime}</ThemedText>
+      <View style={statusBarIcons}>
+        <Feather name="wifi" size={ICON_SIZE} color={color} />
+        <Feather name="bar-chart" size={ICON_SIZE} color={color} />
+        <Feather name="battery" size={ICON_SIZE} color={color} />
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 0,
-    height: 20,
-    paddingHorizontal: 18,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  icons: {
-    gap: 2,
-    flexDirection: "row",
-  },
-});

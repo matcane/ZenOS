@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 
-import { useThemeColor } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks/core";
 
 export default function SettingsLayout() {
-  const theme = useThemeColor();
+  const theme = useTheme();
   return (
     <Stack>
       <Stack.Screen

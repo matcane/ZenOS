@@ -6,8 +6,9 @@
     "start": "expo start",
     "prebuild": "expo prebuild -p android",
     "android": "expo run:android",
+    "check-types": "tsc --noemit",
     "format": "prettier --write ./src",
-    "lint": "eslint .",
+    "lint": "yarn check-types && eslint .",
     "lint-fix": "eslint . --fix",
     "test": "jest --watchAll",
     "ios": "expo run:ios"

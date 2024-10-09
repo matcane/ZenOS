@@ -31,7 +31,7 @@ const initialState = {
   navBarColor: undefined,
 };
 
-const useThemeStore = create<TExerciseStore>((set) => ({
+export const useThemeStore = create<TExerciseStore>((set) => ({
   ...initialState,
   toggleMode: (colors) => {
     const prevIsDark = useThemeStore.getState().isDark;
@@ -51,5 +51,3 @@ const useThemeStore = create<TExerciseStore>((set) => ({
     set({ navBarColor: color });
   },
 }));
-
-export default useThemeStore;

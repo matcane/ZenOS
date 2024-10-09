@@ -1,164 +1,129 @@
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRef, useState } from "react";
-import { Dimensions, FlatList, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, ScrollView } from "react-native";
 
-import { ThemedText } from "@/components/core";
-import { useThemeColor } from "@/hooks/useTheme";
+import { ThemedText, ThemedView, CalcButton } from "@/components/core";
+import { BUTTONS, SPECIAL_BUTTONS, TButton } from "@/constants/calc";
+import { baseStyle } from "@/styles/baseStyle";
+import { coreStyles } from "@/styles/core";
+
+const { fontLG, fontMD, textCenter, flexGrow, flexGrowNone } = baseStyle;
+const { calcDisplay, calcDisplayText } = coreStyles;
 
 const screenWidth = Dimensions.get("window").width;
+const numColumns = 4;
+const itemWidth = screenWidth / numColumns;
 
 export default function Page() {
-  const theme = useThemeColor();
   const ref = useRef<ScrollView>(null);
   const [equation, setEquation] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState("");
-  const buttons = [
-    { iconName: "c", char: "", action: "clearAll" },
-    { iconName: "percent", char: "%", action: "" },
-    { iconName: "delete-left", char: "", action: "clearLast" },
-    { iconName: "", char: "/", action: "" },
-    { iconName: "7", char: "7", action: "" },
-    { iconName: "8", char: "8", action: "" },
-    { iconName: "9", char: "9", action: "" },
-    { iconName: "xmark", char: "x", action: "" },
-    { iconName: "4", char: "4", action: "" },
-    { iconName: "5", char: "5", action: "" },
-    { iconName: "6", char: "6", action: "" },
-    { iconName: "minus", char: "-", action: "" },
-    { iconName: "1", char: "1", action: "" },
-    { iconName: "2", char: "2", action: "" },
-    { iconName: "3", char: "3", action: "" },
-    { iconName: "plus", char: "+", action: "" },
-    { iconName: "0", char: "0", action: "" },
-    { iconName: "", char: ".", action: "" },
-    { iconName: "equals", char: "", action: "calculate" },
-  ];
-  const specialButtons = ["/", "x", "-", "=", "%", "+", "."];
-  const numColumns = 4;
-  const itemWidth = screenWidth / numColumns;
 
   const handleAction = (action: string) => {
-    if (action === "clearAll") {
+    const clearAll = () => {
       setEquation([]);
       setShowResult(false);
-    }
+    };
 
-    if (action === "clearLast") {
+    const clearLast = () => {
       setEquation((prev) => prev.slice(0, -1));
       ref.current?.scrollToEnd({ animated: true });
       setShowResult(false);
-    }
-    if (action === "calculate") {
-      const limiter = equation.at(-1) === "%" ? "/ 100" : "/ 100 *";
-      setResult(
-        eval(
-          equation
-            .join("")
-            .replace(/(\d)([^\d.])/g, "$1 $2")
-            .replace(/([^\d.])(\d)/g, "$1 $2")
-            .replace(/ \. /g, ".")
-            .replace(/%/g, limiter)
-            .replace(/x/g, "*"),
-        ),
-      );
+    };
+
+    const calculate = () => {
+      const lastElement = equation.at(-1);
+      const limiter = lastElement === "%" ? "/ 100" : "/ 100 *";
+
+      const sanitizedEquation = equation
+        .join("")
+        .replace(/(\d)([^\d.])/g, "$1 $2")
+        .replace(/([^\d.])(\d)/g, "$1 $2")
+        .replace(/ \. /g, ".")
+        .replace(/%/g, limiter)
+        .replace(/x/g, "*");
+
+      setResult(eval(sanitizedEquation));
       setShowResult(true);
+    };
+
+    switch (action) {
+      case "clearAll":
+        clearAll();
+        break;
+      case "clearLast":
+        clearLast();
+        break;
+      case "calculate":
+        calculate();
+        break;
+      default:
+        break;
     }
   };
 
-  const handleEquation = (item: { iconName: string; char: string; action: string }) => {
-    if (item.char) {
+  const handleEquation = (button: TButton) => {
+    if (button.char) {
       let performScroll: boolean = false;
+
       setEquation((prev) => {
         const lastChar = prev[prev.length - 1];
+        const isCurrentSpecial = SPECIAL_BUTTONS.includes(button.char);
+        const isLastSpecial = SPECIAL_BUTTONS.includes(lastChar);
 
-        if (specialButtons.includes(item.char) && prev.length === 0 && item.char !== "-") {
+        if (isCurrentSpecial && prev.length === 0 && button.char !== "-") {
           return prev;
         }
 
-        if (
-          specialButtons.includes(lastChar) &&
-          specialButtons.includes(item.char) &&
-          prev.length > 1 &&
-          lastChar !== item.char
-        ) {
+        if (isLastSpecial && isCurrentSpecial && prev.length > 1 && lastChar !== button.char) {
           performScroll = true;
-          return [...prev.slice(0, -1), item.char];
-        } else if (!(specialButtons.includes(lastChar) && specialButtons.includes(item.char))) {
+          return [...prev.slice(0, -1), button.char];
+        }
+
+        if (!(isLastSpecial && isCurrentSpecial)) {
           performScroll = true;
-          return [...prev, item.char];
+          return [...prev, button.char];
         }
 
         return prev;
       });
+
       if (performScroll) ref.current?.scrollToEnd({ animated: true });
     }
-    if (item.action) handleAction(item.action);
+
+    if (button.action) handleAction(button.action);
   };
 
   return (
     <>
-      <View
-        style={[
-          styles.wrapper,
-          {
-            backgroundColor: theme.background,
-            paddingBottom: 20,
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-          },
-        ]}>
-        <ScrollView ref={ref} horizontal={true} style={{ flex: 0, flexGrow: 0 }}>
-          <ThemedText
-            numberOfLines={1}
-            style={{ paddingHorizontal: 20, fontSize: 48, textAlign: "right" }}>
+      <ThemedView style={[flexGrow, calcDisplay]}>
+        <ScrollView ref={ref} horizontal={true} style={flexGrowNone}>
+          <ThemedText numberOfLines={1} style={[fontLG, textCenter, calcDisplayText]}>
             {equation}
           </ThemedText>
         </ScrollView>
-        <ScrollView horizontal={true} style={{ flex: 0, flexGrow: 0 }}>
-          <ThemedText
-            numberOfLines={1}
-            style={{ paddingHorizontal: 10, fontSize: 32, textAlign: "right" }}>
+        <ScrollView horizontal={true} style={flexGrowNone}>
+          <ThemedText numberOfLines={1} style={[fontMD, textCenter, calcDisplayText]}>
             {showResult && result}
           </ThemedText>
         </ScrollView>
-      </View>
-      <View style={{ backgroundColor: theme.background }}>
+      </ThemedView>
+      <ThemedView>
         <FlatList
-          data={buttons}
+          data={BUTTONS}
           renderItem={({ item, index }) => (
-            <TouchableOpacity
+            <CalcButton
+              button={item}
+              index={index}
+              itemWidth={itemWidth}
               onPress={() => handleEquation(item)}
-              style={[
-                styles.container,
-                {
-                  justifyContent: "center",
-                  height: itemWidth,
-                  width: index === buttons.length - 1 ? itemWidth * 2 : itemWidth,
-                  backgroundColor: index === buttons.length - 1 ? theme.primary : theme.container,
-                },
-              ]}>
-              {item.iconName ? (
-                <FontAwesome6 name={item.iconName} size={32} color={theme.text} />
-              ) : (
-                <ThemedText style={{ fontSize: 36 }}>{item.char}</ThemedText>
-              )}
-            </TouchableOpacity>
+              isLast={index === BUTTONS.length - 1}
+            />
           )}
           keyExtractor={(item, index) => index.toString()}
           numColumns={numColumns}
         />
-      </View>
+      </ThemedView>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flexGrow: 1,
-  },
-  container: {
-    padding: 20,
-    alignItems: "center",
-  },
-});

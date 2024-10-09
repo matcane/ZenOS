@@ -2,11 +2,13 @@ import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as StatusBarSettings from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
 
-import { NavigationBar, StatusBar, Wallpaper } from "@/components/core";
+import { NavigationBar, StatusBar, Wallpaper, ThemedView } from "@/components/core";
+import { baseStyle } from "@/styles/baseStyle";
 
 SplashScreen.preventAutoHideAsync();
+
+const { flexGrow } = baseStyle;
 
 export default function RootLayout() {
   const [loaded, setLoaded] = useState(false);
@@ -44,12 +46,12 @@ function RootLayoutNav() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <ThemedView style={flexGrow}>
       <Wallpaper>
         <StatusBar />
         <Slot />
         <NavigationBar />
       </Wallpaper>
-    </View>
+    </ThemedView>
   );
 }

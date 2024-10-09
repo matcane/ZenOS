@@ -1,21 +1,33 @@
 import Feather from "@expo/vector-icons/Feather";
 import { router, useSegments } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
 
-import { useThemeColor } from "@/hooks/useTheme";
-import useThemeStore from "@/store/themeStore";
+import { useTheme } from "@/hooks/core";
+import { useThemeStore } from "@/store/core";
+import { baseStyle } from "@/styles/baseStyle";
+import { coreStyles } from "@/styles/core";
 import { Colors } from "@/theme";
 
+const { sizeSM } = baseStyle;
+const { navigationBarContainer, backNavButton } = coreStyles;
+
 export default function NavigationBar() {
-  const theme = useThemeColor();
+  const theme = useTheme();
   const segments = useSegments();
   const navBarColor = useThemeStore((state) => state.navBarColor);
 
   const setNavBarColor = useThemeStore((state) => state.setNavBarColor);
   const setStatusBarColor = useThemeStore((state) => state.setStatusBarColor);
 
-  const bg = segments.length > 0 ? { backgroundColor: navBarColor } : undefined;
-  const icons = segments.length > 0 ? theme.text : Colors.dark.text;
+  const iconSize = sizeSM.height;
+  const backgroundColor = segments.length > 0 ? { backgroundColor: navBarColor } : undefined;
+  const navBarButtonHitSlop = {
+    bottom: 15,
+    left: 20,
+    right: 20,
+    top: 15,
+  };
+  const color = segments.length > 0 ? theme.text : Colors.dark.text;
   const canBack = segments.length > 0;
 
   const homeNavigation = () => {
@@ -27,46 +39,18 @@ export default function NavigationBar() {
   const backNavigation = () => {
     router.back();
   };
+
   return (
-    <View style={[styles.container, bg]}>
-      <Feather name="menu" size={16} color={icons} />
-      <Pressable
-        hitSlop={{
-          bottom: 15,
-          left: 20,
-          right: 20,
-          top: 15,
-        }}
-        disabled={!canBack}
-        onPress={homeNavigation}>
-        <Feather name="square" size={16} color={icons} />
+    <View style={[navigationBarContainer, backgroundColor]}>
+      <Feather name="menu" size={iconSize} color={color} />
+
+      <Pressable hitSlop={navBarButtonHitSlop} disabled={!canBack} onPress={homeNavigation}>
+        <Feather name="square" size={iconSize} color={color} />
       </Pressable>
-      <Pressable
-        hitSlop={{
-          bottom: 15,
-          left: 20,
-          right: 20,
-          top: 15,
-        }}
-        disabled={!canBack}
-        onPress={backNavigation}>
-        <Feather
-          name="triangle"
-          style={{ transform: [{ rotate: "30deg" }] }}
-          size={16}
-          color={icons}
-        />
+
+      <Pressable hitSlop={navBarButtonHitSlop} disabled={!canBack} onPress={backNavigation}>
+        <Feather name="triangle" style={backNavButton} size={iconSize} color={color} />
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 45,
-    gap: 20,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-});

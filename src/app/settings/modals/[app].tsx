@@ -1,41 +1,44 @@
 import { Link, useLocalSearchParams } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
-import { View, Image } from "react-native";
+import { Image } from "react-native";
 
-import { ThemedText } from "@/components/core";
-import { apps, appsIcon, appsIconSource, pinned_apps } from "@/constants/apps";
-import { useThemeColor } from "@/hooks/useTheme";
+import { ThemedText, ThemedView } from "@/components/core";
+import { APPS, APPS_ICON, APPS_ICON_SOURCE, PINNED_APPS } from "@/constants/core";
+import { useTheme } from "@/hooks/core";
+import { baseStyle } from "@/styles/baseStyle";
+
+const { fontSM, fontMD, flexGrow, itemsCenter, paddingBottomXL } = baseStyle;
 
 export default function Page() {
-  const theme = useThemeColor();
+  const theme = useTheme();
   const { slug } = useLocalSearchParams();
-  const appList = [...apps, ...pinned_apps];
+  const appList = [...APPS, ...PINNED_APPS];
 
   const app = appList.find((app) => app.slug === slug);
 
   if (!app) return null;
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.background, alignItems: "center" }}>
-      <Image source={appsIcon[app.icon]} />
-      <ThemedText style={{ fontSize: 32 }}>{app.name}</ThemedText>
-      <ThemedText style={{ fontSize: 18, flex: 1 }}>{app.version}</ThemedText>
-      <ThemedText style={{ paddingBottom: 20 }}>
+    <ThemedView style={[flexGrow, itemsCenter]}>
+      <Image source={APPS_ICON[app.icon]} />
+      <ThemedText style={fontMD}>{app.name}</ThemedText>
+      <ThemedText style={[fontSM, flexGrow]}>{app.version}</ThemedText>
+      <ThemedText style={paddingBottomXL}>
         <Link
-          style={{ color: theme.primary }}
           target="_blank"
-          href={appsIconSource[app.icon]}
+          style={{ color: theme.primary }}
+          href={APPS_ICON_SOURCE[app.icon]}
           onPress={async (event) => {
             event.preventDefault();
-            await openBrowserAsync(appsIconSource[app.icon]);
+            await openBrowserAsync(APPS_ICON_SOURCE[app.icon]);
           }}>
           {app.name}
         </Link>
         <ThemedText> icon by </ThemedText>
         <Link
-          style={{ color: theme.primary }}
           target="_blank"
           href="https://icons8.com"
+          style={{ color: theme.primary }}
           onPress={async (event) => {
             event.preventDefault();
             await openBrowserAsync("https://icons8.com");
@@ -43,6 +46,6 @@ export default function Page() {
           icons8
         </Link>
       </ThemedText>
-    </View>
+    </ThemedView>
   );
 }

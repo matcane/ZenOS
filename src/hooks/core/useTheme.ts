@@ -1,7 +1,7 @@
-import useThemeStore from "@/store/themeStore";
+import { useThemeStore } from "@/store/core";
 import { Colors } from "@/theme";
 
-export function useThemeColor() {
+export function useTheme() {
   const isDark = useThemeStore((state) => state.isDark);
 
   if (isDark) {

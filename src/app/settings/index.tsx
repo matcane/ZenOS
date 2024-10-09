@@ -1,72 +1,49 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as Application from "expo-application";
-import { router } from "expo-router";
-import { StyleSheet, FlatList, Pressable, View } from "react-native";
+import { Link, router } from "expo-router";
+import { openBrowserAsync } from "expo-web-browser";
+import { FlatList } from "react-native";
 
-import { ThemedText } from "@/components/core";
-import { useThemeColor } from "@/hooks/useTheme";
+import { SettingsField, ThemedText, ThemedView } from "@/components/core";
+import { SETTINGS_FIELDS } from "@/constants/core";
+import { useTheme } from "@/hooks/core";
+import { baseStyle } from "@/styles/baseStyle";
+
+const { paddingLG, flexGrow, itemsCenter } = baseStyle;
 
 export default function Page() {
-  const theme = useThemeColor();
+  const theme = useTheme();
   const osInfo = `${Application.applicationName} ${Application.nativeApplicationVersion}`;
-  const palette_outline = (
-    <MaterialCommunityIcons name="palette-outline" size={24} color={theme.text} />
-  );
-  const apps = <MaterialCommunityIcons name="apps" size={24} color={theme.text} />;
-
-  const settings = [
-    { name: "Theme", icon: palette_outline, path: "settings/modals/Theme" },
-    { name: "App", icon: apps, path: "settings/modals/Apps" },
-  ];
 
   return (
-    <>
+    <ThemedView style={[flexGrow, paddingLG]}>
       <FlatList
-        data={settings}
-        contentContainerStyle={{ padding: 15, flex: 1, backgroundColor: theme.background }}
+        data={SETTINGS_FIELDS}
         renderItem={({ item, index }) => (
-          <Pressable
+          <SettingsField
+            setting={item}
+            isFirst={index === 0}
+            isLast={index === SETTINGS_FIELDS.length - 1}
             onPress={() => router.navigate(item.path)}
-            style={[
-              { backgroundColor: theme.container },
-              styles.item,
-              index === 0 ? styles.firstItem : undefined,
-              index === settings.length - 1 ? styles.lastItem : undefined,
-            ]}>
-            {item.icon}
-            <ThemedText style={{ flex: 1 }}>{item.name}</ThemedText>
-            <MaterialCommunityIcons name="chevron-right" size={24} color={theme.text} />
-          </Pressable>
+          />
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-      <View
-        style={{
-          backgroundColor: theme.background,
-          alignItems: "center",
-        }}>
+      <ThemedView style={itemsCenter}>
         <ThemedText>{osInfo}</ThemedText>
-      </View>
-    </>
+        <ThemedText style={flexGrow}>
+          Icons by{" "}
+          <Link
+            target="_blank"
+            style={{ color: theme.primary }}
+            href="https://icons8.com"
+            onPress={async (event) => {
+              event.preventDefault();
+              await openBrowserAsync("https://icons8.com");
+            }}>
+            icons8
+          </Link>
+        </ThemedText>
+      </ThemedView>
+    </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  item: {
-    height: 40,
-    gap: 10,
-    paddingLeft: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexGrow: 1,
-  },
-  firstItem: {
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
-  },
-  lastItem: {
-    borderBottomEndRadius: 10,
-    borderBottomStartRadius: 10,
-  },
-});

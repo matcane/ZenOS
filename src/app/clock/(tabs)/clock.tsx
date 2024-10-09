@@ -1,16 +1,15 @@
-import { View } from "react-native";
+import { ThemedText, ThemedView } from "@/components/core";
+import { useTime } from "@/hooks/core";
+import { baseStyle } from "@/styles/baseStyle";
 
-import { ThemedText } from "@/components/core";
-import { useThemeColor } from "@/hooks/useTheme";
-import { useTime } from "@/hooks/useTime";
+const { fontSM, fontXL, textCenter, paddingMD, flexGrow } = baseStyle;
 
 export default function Page() {
-  const theme = useThemeColor();
   const { currentTime, currentDate } = useTime(true);
   return (
-    <View style={{ flex: 1, paddingTop: 40, backgroundColor: theme.background }}>
-      <ThemedText style={{ fontSize: 64, textAlign: "center" }}>{currentTime}</ThemedText>
-      <ThemedText style={{ fontSize: 16, textAlign: "center" }}>{currentDate}</ThemedText>
-    </View>
+    <ThemedView style={[flexGrow, paddingMD]}>
+      <ThemedText style={[fontXL, textCenter]}>{currentTime}</ThemedText>
+      <ThemedText style={[fontSM, textCenter]}>{currentDate}</ThemedText>
+    </ThemedView>
   );
 }
