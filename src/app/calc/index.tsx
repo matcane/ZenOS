@@ -6,7 +6,6 @@ import { ThemedText } from "@/components/core";
 import { useThemeColor } from "@/hooks/useTheme";
 
 const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
 
 export default function Page() {
   const theme = useThemeColor();
@@ -37,9 +36,7 @@ export default function Page() {
   ];
   const specialButtons = ["/", "x", "-", "=", "%", "+", "."];
   const numColumns = 4;
-  const numRows = 5;
   const itemWidth = screenWidth / numColumns;
-  const itemHeight = Math.floor(screenHeight / numRows / 1.5);
 
   const handleAction = (action: string) => {
     if (action === "clearAll") {
@@ -136,7 +133,7 @@ export default function Page() {
                 styles.container,
                 {
                   justifyContent: "center",
-                  height: itemHeight,
+                  height: itemWidth,
                   width: index === buttons.length - 1 ? itemWidth * 2 : itemWidth,
                   backgroundColor: index === buttons.length - 1 ? theme.primary : theme.container,
                 },
