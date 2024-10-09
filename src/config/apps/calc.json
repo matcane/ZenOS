@@ -1,0 +1,12 @@
+{
+  "name": "Calc",
+  "slug": "calc",
+  "version": "0.0.1",
+  "icon": "@assets/icons/icons8-calculator.webp",
+  "navigationBar": {
+    "backgroundColor": "#e0e0e0",
+    "dark": {
+      "backgroundColor": "#212121"
+    }
+  }
+}

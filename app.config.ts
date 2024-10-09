@@ -11,7 +11,7 @@ module.exports = {
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/images/adaptive-icon.png",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#000000",
       },
       splash: {
         image: "./assets/images/splash.png",
@@ -36,10 +36,17 @@ module.exports = {
       [
         "expo-navigation-bar",
         {
+          position: "absolute",
           visibility: "hidden",
-          behavior: "inset-touch",
+          behavior: "overlay-swipe",
+          backgroundColor: "#000000",
         },
       ],
     ],
+    extra: {
+      eas: {
+        projectId: process.env.EAS_BUILD_PROJECT_ID,
+      },
+    },
   },
 };

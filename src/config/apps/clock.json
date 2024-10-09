@@ -1,0 +1,12 @@
+{
+  "name": "Clock",
+  "slug": "clock",
+  "version": "0.0.1",
+  "icon": "@assets/icons/icons8-clock.webp",
+  "navigationBar": {
+    "backgroundColor": "#e0e0e0",
+    "dark": {
+      "backgroundColor": "#212121"
+    }
+  }
+}
