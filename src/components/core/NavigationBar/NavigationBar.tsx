@@ -14,6 +14,7 @@ const { navigationBarContainer, backNavButton } = coreStyles;
 export default function NavigationBar() {
   const theme = useTheme();
   const segments = useSegments();
+
   const navBarColor = useThemeStore((state) => state.navBarColor);
 
   const setNavBarColor = useThemeStore((state) => state.setNavBarColor);

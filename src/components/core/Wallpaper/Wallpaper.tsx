@@ -9,7 +9,7 @@ const { wallpaper } = coreStyles;
 
 export default function Wallpaper({ children }: PropsWithChildren) {
   return (
-    <ImageBackground source={image} resizeMode="cover" style={wallpaper}>
+    <ImageBackground testID="image-background" source={image} resizeMode="cover" style={wallpaper}>
       {children}
     </ImageBackground>
   );

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppWidget component renders correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "padding": 20,
+      },
+      {
+        "width": 100,
+      },
+    ]
+  }
+  testID="pressable"
+>
+  <Image
+    source={1}
+    testID="icon"
+  />
+  <Text
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#212121",
+        },
+        {
+          "fontSize": 16,
+        },
+        [
+          {
+            "textAlign": "center",
+          },
+          {
+            "color": "#ffffff",
+            "width": 100,
+          },
+        ],
+      ]
+    }
+  >
+    App Name
+  </Text>
+</View>
+`;

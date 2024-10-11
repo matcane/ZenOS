@@ -114,7 +114,6 @@ export default function Page() {
           renderItem={({ item, index }) => (
             <CalcButton
               button={item}
-              index={index}
               itemWidth={itemWidth}
               onPress={() => handleEquation(item)}
               isLast={index === BUTTONS.length - 1}

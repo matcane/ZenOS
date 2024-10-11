@@ -29,6 +29,7 @@ export default function ActionButton({ variant, active, iconName, style, fn }: A
 
   return (
     <TouchableOpacity
+      testID="action-button"
       onPress={active && fn}
       style={[actionButton, buttonSize, { backgroundColor: backgroudColor }, style]}>
       <MaterialCommunityIcons name={iconName} size={iconSize.height} color="white" />

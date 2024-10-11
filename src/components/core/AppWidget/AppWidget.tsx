@@ -19,8 +19,8 @@ type AppWidgetProps = PressableProps & {
 export default function AppWidget({ app, itemWidth, onlyIcon, ...rest }: AppWidgetProps) {
   const additionalStyles = { color: Colors.dark.text, width: itemWidth };
   return (
-    <Pressable style={[container, { width: itemWidth }]} {...rest}>
-      <Image source={APPS_ICON[app.icon]} />
+    <Pressable testID="pressable" style={[container, { width: itemWidth }]} {...rest}>
+      <Image source={APPS_ICON[app.icon]} testID="icon" />
       {onlyIcon ? undefined : (
         <ThemedText style={[textCenter, additionalStyles]} numberOfLines={1}>
           {app.name}

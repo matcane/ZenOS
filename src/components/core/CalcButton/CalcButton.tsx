@@ -14,11 +14,10 @@ const { container } = coreStyles;
 type CalcButtonProps = TouchableOpacityProps & {
   button: TButton;
   isLast: boolean;
-  index: number;
   itemWidth: number;
 };
 
-export default function CalcButton({ isLast, button, index, itemWidth, ...rest }: CalcButtonProps) {
+export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcButtonProps) {
   const theme = useTheme();
 
   const width = isLast ? itemWidth * 2 : itemWidth;
@@ -33,11 +32,16 @@ export default function CalcButton({ isLast, button, index, itemWidth, ...rest }
   };
 
   return (
-    <TouchableOpacity style={[container, justifyCenter, additionalStyles]} {...rest}>
+    <TouchableOpacity
+      testID="calc-button"
+      style={[container, justifyCenter, additionalStyles]}
+      {...rest}>
       {button.iconName ? (
-        <FontAwesome6 name={button.iconName} size={iconSize} color={theme.text} />
+        <FontAwesome6 testID="icon" name={button.iconName} size={iconSize} color={theme.text} />
       ) : (
-        <ThemedText style={fontMD}>{button.char}</ThemedText>
+        <ThemedText testID="text" style={fontMD}>
+          {button.char}
+        </ThemedText>
       )}
     </TouchableOpacity>
   );

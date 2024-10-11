@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusBar component renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "height": 20,
+        "justifyContent": "space-between",
+        "paddingHorizontal": 18,
+      },
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#000000",
+        },
+        {
+          "fontSize": 16,
+        },
+        {
+          "color": "#ffffff",
+        },
+      ]
+    }
+  >
+    00:00
+  </Text>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "gap": 2,
+      }
+    }
+  >
+    <Text />
+    <Text />
+    <Text />
+  </View>
+</View>
+`;
