@@ -23,7 +23,7 @@ export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcB
   const width = isLast ? itemWidth * 2 : itemWidth;
   const backgroundColor = isLast ? theme.primary : theme.container;
 
-  const iconSize = fontMD;
+  const iconSize = fontMD.fontSize;
 
   const additionalStyles = {
     height: itemWidth,
