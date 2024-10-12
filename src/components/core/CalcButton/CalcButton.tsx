@@ -1,5 +1,5 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Pressable, TouchableOpacityProps } from "react-native";
 
 import { TButton } from "@/constants/calc";
 import { useTheme } from "@/hooks/core";
@@ -32,10 +32,7 @@ export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcB
   };
 
   return (
-    <TouchableOpacity
-      testID="calc-button"
-      style={[container, justifyCenter, additionalStyles]}
-      {...rest}>
+    <Pressable testID="calc-button" style={[container, justifyCenter, additionalStyles]} {...rest}>
       {button.iconName ? (
         <FontAwesome6 testID="icon" name={button.iconName} size={iconSize} color={theme.text} />
       ) : (
@@ -43,6 +40,6 @@ export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcB
           {button.char}
         </ThemedText>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 }
