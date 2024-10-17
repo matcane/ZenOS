@@ -1,9 +1,8 @@
 import Feather from "@expo/vector-icons/Feather";
-import { router, useSegments } from "expo-router";
 import { Pressable, View } from "react-native";
 
 import { useTheme } from "@/hooks/core";
-import { useThemeStore } from "@/store/core";
+import { useNav } from "@/hooks/core/useNav";
 import { baseStyle } from "@/styles/baseStyle";
 import { coreStyles } from "@/styles/core";
 import { Colors } from "@/theme";
@@ -13,33 +12,18 @@ const { navigationBarContainer, backNavButton } = coreStyles;
 
 export default function NavigationBar() {
   const theme = useTheme();
-  const segments = useSegments();
-
-  const navBarColor = useThemeStore((state) => state.navBarColor);
-
-  const setNavBarColor = useThemeStore((state) => state.setNavBarColor);
-  const setStatusBarColor = useThemeStore((state) => state.setStatusBarColor);
+  const { isRoot, navBarColor, homeNavigation, backNavigation } = useNav();
 
   const iconSize = sizeSM.height;
-  const backgroundColor = segments.length > 0 ? { backgroundColor: navBarColor } : undefined;
+  const backgroundColor = isRoot ? undefined : { backgroundColor: navBarColor };
   const navBarButtonHitSlop = {
     bottom: 15,
     left: 20,
     right: 20,
     top: 15,
   };
-  const color = segments.length > 0 ? theme.text : Colors.dark.text;
-  const canBack = segments.length > 0;
-
-  const homeNavigation = () => {
-    setStatusBarColor(undefined);
-    setNavBarColor(undefined);
-    router.replace("");
-  };
-
-  const backNavigation = () => {
-    router.back();
-  };
+  const color = isRoot ? Colors.dark.text : theme.text;
+  const canBack = !isRoot;
 
   return (
     <View style={[navigationBarContainer, backgroundColor]}>

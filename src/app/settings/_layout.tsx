@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 
+import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
 
 export default function SettingsLayout() {
@@ -9,14 +10,19 @@ export default function SettingsLayout() {
       <Stack.Screen
         name="index"
         options={{
-          headerTitle: "Settings",
-          headerTintColor: theme.text,
-          headerStyle: {
-            backgroundColor: theme.background,
-          },
-          headerLargeTitle: true,
+          header: () => (
+            <ThemedView
+              style={{
+                height: 86,
+                paddingTop: 48,
+                paddingLeft: 16,
+              }}>
+              <ThemedText style={{ fontSize: 22 }}>Settings</ThemedText>
+            </ThemedView>
+          ),
         }}
       />
+
       <Stack.Screen
         name="modals/Theme"
         options={{
@@ -29,6 +35,7 @@ export default function SettingsLayout() {
           },
         }}
       />
+
       <Stack.Screen
         name="modals/Apps"
         options={{

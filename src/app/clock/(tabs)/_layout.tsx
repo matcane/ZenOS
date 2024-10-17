@@ -15,7 +15,6 @@ export default function ClockTabs() {
         name="clock"
         options={{
           headerShown: false,
-          title: "Clock",
           tabBarIcon: ({ size, color }) => <Fontisto name="clock" size={size} color={color} />,
         }}
       />
@@ -23,7 +22,6 @@ export default function ClockTabs() {
         name="stopwatch"
         options={{
           headerShown: false,
-          title: "Stopwatch",
           tabBarIcon: ({ size, color }) => <Fontisto name="stopwatch" size={size} color={color} />,
         }}
       />

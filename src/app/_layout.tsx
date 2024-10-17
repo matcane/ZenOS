@@ -4,6 +4,7 @@ import * as StatusBarSettings from "expo-status-bar";
 import { useEffect, useState } from "react";
 
 import { NavigationBar, StatusBar, Wallpaper, ThemedView } from "@/components/core";
+import { useDateTimeStore } from "@/store/core/dateTimeStore";
 import { baseStyle } from "@/styles/baseStyle";
 
 SplashScreen.preventAutoHideAsync();
@@ -37,6 +38,8 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const setDateTime = useDateTimeStore((state) => state.setDateTime);
+
   useEffect(() => {
     const hideSplashScreen = async () => {
       setTimeout(async () => await SplashScreen.hideAsync(), 2000);
@@ -44,6 +47,14 @@ function RootLayoutNav() {
 
     hideSplashScreen();
   }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [setDateTime]);
 
   return (
     <ThemedView style={flexGrow}>

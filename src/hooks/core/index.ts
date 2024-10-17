@@ -1,3 +1,2 @@
 export * from "./useTheme";
-export * from "./useTime";
-export * from "./useTimer";
+export * from "../clock/useTimer";

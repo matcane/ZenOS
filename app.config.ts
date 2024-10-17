@@ -2,7 +2,7 @@ module.exports = {
   expo: {
     name: "ZenOS",
     slug: "zenos",
-    version: "1.0.0",
+    version: "0.0.1",
     orientation: "portrait",
     platforms: ["android"],
     icon: "./assets/images/icon.png",
@@ -21,6 +21,7 @@ module.exports = {
       package: "com.matcane.zenos",
     },
     plugins: [
+      "./withAndroidDisplayCutout.js",
       "expo-router",
       [
         "expo-build-properties",

@@ -67,11 +67,17 @@ export const coreStyles = StyleSheet.create({
   },
 
   statusBarContainer: {
+    ...baseStyle.absolute,
     ...baseStyle.flexRow,
     ...baseStyle.justifyBetween,
     ...baseStyle.itemsCenter,
-    height: 20,
-    paddingHorizontal: 18,
+    ...baseStyle.paddingHorizontalMD,
+    height: 32,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
   },
 
   statusBarIcons: {
@@ -82,5 +88,6 @@ export const coreStyles = StyleSheet.create({
   wallpaper: {
     ...baseStyle.flexGrow,
     ...baseStyle.justifyCenter,
+    ...baseStyle.paddingTopXL,
   },
 });

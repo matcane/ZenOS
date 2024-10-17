@@ -1,15 +1,19 @@
-import { ThemedText, ThemedView } from "@/components/core";
-import { useTime } from "@/hooks/core";
+import { SafeArea, ThemedText, ThemedView } from "@/components/core";
+import { useDateTimeStore } from "@/store/core/dateTimeStore";
 import { baseStyle } from "@/styles/baseStyle";
 
-const { fontSM, fontXL, textCenter, paddingMD, flexGrow } = baseStyle;
+const { fontSM, fontXL, textCenter, flexGrow } = baseStyle;
 
 export default function Page() {
-  const { currentTime, currentDate } = useTime(true);
+  const currentTime = useDateTimeStore((state) => state.currentTime);
+  const currentDate = useDateTimeStore((state) => state.currentDate);
+
   return (
-    <ThemedView style={[flexGrow, paddingMD]}>
-      <ThemedText style={[fontXL, textCenter]}>{currentTime}</ThemedText>
-      <ThemedText style={[fontSM, textCenter]}>{currentDate}</ThemedText>
-    </ThemedView>
+    <SafeArea>
+      <ThemedView style={[flexGrow]}>
+        <ThemedText style={[fontXL, textCenter]}>{currentTime}</ThemedText>
+        <ThemedText style={[fontSM, textCenter]}>{currentDate}</ThemedText>
+      </ThemedView>
+    </SafeArea>
   );
 }

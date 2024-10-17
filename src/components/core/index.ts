@@ -2,6 +2,7 @@ import ActionButton from "./ActionButton/ActionButton";
 import AppWidget from "./AppWidget/AppWidget";
 import CalcButton from "./CalcButton/CalcButton";
 import NavigationBar from "./NavigationBar/NavigationBar";
+import SafeArea from "./SafeArea/SafeArea";
 import SettingsField from "./SettingsField/SettingsField";
 import StatusBar from "./StatusBar/StatusBar";
 import ThemedText from "./ThemedText/ThemedText";
@@ -18,4 +19,5 @@ export {
   AppWidget,
   CalcButton,
   SettingsField,
+  SafeArea,
 };
