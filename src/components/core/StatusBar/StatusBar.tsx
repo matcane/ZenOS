@@ -24,6 +24,9 @@ export default function StatusBar() {
   const backgroundColor = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
   const color = segments.length > 0 ? theme.text : Colors.dark.text;
 
+  if ((segments.length === 1 && segments[0] === "sign-in") || segments[0] === "sign-up")
+    return null;
+
   return (
     <View style={[statusBarContainer, backgroundColor]}>
       <ThemedText style={{ color: color }}>{currentTime.slice(0, 5)}</ThemedText>

@@ -1,7 +1,8 @@
+import auth from "@react-native-firebase/auth";
 import * as Application from "expo-application";
 import { Link, router } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
-import { FlatList } from "react-native";
+import { FlatList, Pressable } from "react-native";
 
 import { SettingsField, ThemedText, ThemedView } from "@/components/core";
 import { SETTINGS_FIELDS } from "@/constants/core";
@@ -28,6 +29,16 @@ export default function Page() {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
+      <Pressable
+        onPress={() => auth().signOut()}
+        style={{
+          backgroundColor: theme.primary,
+          borderRadius: 99,
+          height: 32,
+          justifyContent: "center",
+        }}>
+        <ThemedText style={baseStyle.textCenter}>Shutdown</ThemedText>
+      </Pressable>
       <ThemedView style={itemsCenter}>
         <ThemedText>{osInfo}</ThemedText>
         <ThemedText style={flexGrow}>

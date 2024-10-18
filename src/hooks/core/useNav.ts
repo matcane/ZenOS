@@ -23,7 +23,7 @@ export function useNav() {
   };
 
   const backNavigation = () => {
-    router.back();
+    router.dismiss();
   };
 
   const handleNavigation = (item: TApp) => {

@@ -19,8 +19,11 @@ module.exports = {
         backgroundColor: "#000000",
       },
       package: "com.matcane.zenos",
+      googleServicesFile: "./google-services.json",
     },
     plugins: [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
       "./withAndroidDisplayCutout.js",
       "expo-router",
       [
