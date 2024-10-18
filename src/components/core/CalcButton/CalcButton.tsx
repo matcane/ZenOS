@@ -8,7 +8,7 @@ import { coreStyles } from "@/styles/core";
 
 import ThemedText from "../ThemedText/ThemedText";
 
-const { fontMD, justifyCenter } = baseStyle;
+const { fontMD, justifyCenter, roundedFull, marginMD } = baseStyle;
 const { container } = coreStyles;
 
 type CalcButtonProps = TouchableOpacityProps & {
@@ -26,13 +26,16 @@ export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcB
   const iconSize = fontMD.fontSize;
 
   const additionalStyles = {
-    height: itemWidth,
-    width: width,
+    height: itemWidth - marginMD.margin * 2,
+    width: width - marginMD.margin * 2,
     backgroundColor: backgroundColor,
   };
 
   return (
-    <Pressable testID="calc-button" style={[container, justifyCenter, additionalStyles]} {...rest}>
+    <Pressable
+      testID="calc-button"
+      style={[container, justifyCenter, roundedFull, marginMD, additionalStyles]}
+      {...rest}>
       {button.iconName ? (
         <FontAwesome6 testID="icon" name={button.iconName} size={iconSize} color={theme.text} />
       ) : (
