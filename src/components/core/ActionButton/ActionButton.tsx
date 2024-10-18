@@ -8,7 +8,7 @@ import { coreStyles } from "@/styles/core";
 const { sizeMD, sizeLG, sizeXL } = baseStyle;
 const { actionButton } = coreStyles;
 
-type TIconName = "play" | "pause" | "repeat";
+type TIconName = "play" | "pause" | "repeat" | "message-text";
 type TVariants = "primary" | "secondary";
 
 type ActionButtonProps = {

@@ -31,7 +31,6 @@ export default function Page() {
           data={PINNED_APPS}
           renderItem={({ item, index }) => (
             <AppWidget
-              disabled
               onlyIcon
               app={item}
               itemWidth={itemWidth}

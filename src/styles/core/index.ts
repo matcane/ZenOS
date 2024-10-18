@@ -90,4 +90,6 @@ export const coreStyles = StyleSheet.create({
     ...baseStyle.justifyCenter,
     ...baseStyle.paddingTopXL,
   },
+
+  newMessage: { right: "5%", bottom: "2%" },
 });

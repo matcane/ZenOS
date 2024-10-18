@@ -8,8 +8,10 @@ import { generatePhoneNumber } from "@/utils/core";
 
 export type TUser = {
   user: FirebaseAuthTypes.User | null;
+  phoneNumber: string;
   isLoading: boolean;
   errorData: string;
+  setPhoneNumber: (phoneNumber: string) => void;
   signUp: (email: string, password: string) => void;
   signIn: (email: string, password: string) => void;
   clearError: () => void;
@@ -17,6 +19,7 @@ export type TUser = {
 
 const initialState = {
   user: null,
+  phoneNumber: "",
   isLoading: false,
   errorData: "",
 };
@@ -31,7 +34,7 @@ export const useAuthStore = create<TUser>((set) => ({
       await firestore()
         .collection("phoneNumbers")
         .add({ user_uid: auth().currentUser?.uid, phoneNumber: generatedPhoneNumber });
-      set({ isLoading: false });
+      set({ phoneNumber: generatedPhoneNumber, isLoading: false });
     } catch (e: any) {
       const err = e as FirebaseError;
       set({ errorData: err.code });
@@ -50,6 +53,9 @@ export const useAuthStore = create<TUser>((set) => ({
       set({ isLoading: false });
       console.error(err);
     }
+  },
+  setPhoneNumber: (phoneNumber) => {
+    set({ phoneNumber: phoneNumber });
   },
   clearError: () => {
     set({ errorData: "" });
