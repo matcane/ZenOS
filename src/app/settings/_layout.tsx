@@ -50,6 +50,19 @@ export default function SettingsLayout() {
       />
 
       <Stack.Screen
+        name="modals/Phone"
+        options={{
+          presentation: "modal",
+          animation: "none",
+          headerTitle: "Phone",
+          headerTintColor: theme.text,
+          headerStyle: {
+            backgroundColor: theme.background,
+          },
+        }}
+      />
+
+      <Stack.Screen
         name="modals/[app]"
         options={{
           presentation: "modal",
