@@ -46,7 +46,7 @@ export const useAuthStore = create<TUser>((set) => ({
     set({ isLoading: true });
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      set({ isLoading: false });
+      set({ phoneNumber: "", isLoading: false });
     } catch (e: any) {
       const err = e as FirebaseError;
       set({ errorData: err.code });

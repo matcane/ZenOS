@@ -39,7 +39,7 @@ export default function Page() {
         }}>
         <ThemedText style={baseStyle.textCenter}>Shutdown</ThemedText>
       </Pressable>
-      <ThemedView style={itemsCenter}>
+      <ThemedView style={[itemsCenter, baseStyle.paddingTopLG]}>
         <ThemedText>{osInfo}</ThemedText>
         <ThemedText style={flexGrow}>
           Icons by{" "}
