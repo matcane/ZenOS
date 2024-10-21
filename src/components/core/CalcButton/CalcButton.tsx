@@ -20,8 +20,15 @@ type CalcButtonProps = TouchableOpacityProps & {
 export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcButtonProps) {
   const theme = useTheme();
 
-  const width = isLast ? itemWidth * 2 : itemWidth;
-  const backgroundColor = isLast ? theme.primary : theme.container;
+  const isNormal = isNaN(parseInt(button.char));
+  const backgroundColor = isLast
+    ? theme.primary
+    : isNormal
+      ? button.char === "."
+        ? theme.container
+        : theme.secondaryContainer
+      : theme.container;
+  const width = itemWidth * (isLast ? 2 : 1);
 
   const iconSize = fontMD.fontSize;
 
