@@ -94,30 +94,14 @@ export function useMessages() {
 
   const addNewMessage = async (docID: string) => {
     try {
+      const docRef = firestore().collection("messages").doc(docID);
       const newMessageObject = {
         author: currentPhoneNumber,
         creation_date: firestore.Timestamp.fromDate(new Date()),
         message: newMessage,
       };
-      // Lokalna aktualizacja `messagesList`
-      setMessagesList((prevMessagesList) =>
-        prevMessagesList.map((chat) =>
-          chat.docID === docID
-            ? {
-                ...chat,
-                data: {
-                  ...chat.data,
-                  history: [newMessageObject, ...chat.data.history], // dodaj wiadomość lokalnie
-                },
-              }
-            : chat,
-        ),
-      );
-      const docRef = firestore().collection("messages").doc(docID);
-
       setNewMessage("");
 
-      // Zaktualizowanie Firestore
       await docRef.update({
         history: firestore.FieldValue.arrayUnion(newMessageObject),
       });
