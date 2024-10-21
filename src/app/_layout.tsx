@@ -1,9 +1,11 @@
-import { Slot } from "expo-router";
+import { router, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as StatusBarSettings from "expo-status-bar";
 import { useEffect, useState } from "react";
 
 import { NavigationBar, StatusBar, Wallpaper, ThemedView } from "@/components/core";
+import { useUser } from "@/hooks/core";
+import { useAuthStore } from "@/store/core";
 import { useDateTimeStore } from "@/store/core/dateTimeStore";
 import { baseStyle } from "@/styles/baseStyle";
 
@@ -39,6 +41,23 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const setDateTime = useDateTimeStore((state) => state.setDateTime);
+  const isLoading = useAuthStore((state) => state.isLoading);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    const prepareApp = async () => {
+      if (isLoading) return;
+
+      if (!user) {
+        router.replace("sign-in");
+      } else {
+        router.replace("");
+      }
+    };
+
+    prepareApp();
+  }, [isLoading, user]);
 
   useEffect(() => {
     const hideSplashScreen = async () => {

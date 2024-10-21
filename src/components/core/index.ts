@@ -1,5 +1,6 @@
 import ActionButton from "./ActionButton/ActionButton";
 import AppWidget from "./AppWidget/AppWidget";
+import AuthForm from "./AuthForm/AuthForm";
 import CalcButton from "./CalcButton/CalcButton";
 import NavigationBar from "./NavigationBar/NavigationBar";
 import SafeArea from "./SafeArea/SafeArea";
@@ -20,4 +21,5 @@ export {
   CalcButton,
   SettingsField,
   SafeArea,
+  AuthForm,
 };

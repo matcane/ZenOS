@@ -3,10 +3,13 @@ import { Stack } from "expo-router";
 import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
 
-export default function SettingsLayout() {
+export default function MessagesLayout() {
   const theme = useTheme();
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        contentStyle: { backgroundColor: theme.background },
+      }}>
       <Stack.Screen
         name="index"
         options={{
@@ -17,18 +20,18 @@ export default function SettingsLayout() {
                 paddingTop: 48,
                 paddingLeft: 16,
               }}>
-              <ThemedText style={{ fontSize: 22 }}>Settings</ThemedText>
+              <ThemedText style={{ fontSize: 22 }}>Messages</ThemedText>
             </ThemedView>
           ),
         }}
       />
 
       <Stack.Screen
-        name="modals/Theme"
+        name="modals/ChatStarterModal"
         options={{
           presentation: "modal",
           animation: "none",
-          headerTitle: "Theme",
+          headerTitle: "ChatStarterModal",
           headerTintColor: theme.text,
           headerStyle: {
             backgroundColor: theme.background,
@@ -37,37 +40,11 @@ export default function SettingsLayout() {
       />
 
       <Stack.Screen
-        name="modals/Apps"
+        name="modals/[ConversationModal]"
         options={{
           presentation: "modal",
           animation: "none",
-          headerTitle: "Apps",
-          headerTintColor: theme.text,
-          headerStyle: {
-            backgroundColor: theme.background,
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="modals/Phone"
-        options={{
-          presentation: "modal",
-          animation: "none",
-          headerTitle: "Phone",
-          headerTintColor: theme.text,
-          headerStyle: {
-            backgroundColor: theme.background,
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="modals/[app]"
-        options={{
-          presentation: "modal",
-          animation: "none",
-          headerTitle: "App info",
+          headerTitle: "",
           headerTintColor: theme.text,
           headerStyle: {
             backgroundColor: theme.background,
