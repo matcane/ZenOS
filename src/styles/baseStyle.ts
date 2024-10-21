@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const baseStyle = StyleSheet.create({
   transparent: { backgroundColor: undefined },
 
+  fontXS: { fontSize: 12 },
   fontSM: { fontSize: 16 },
   fontMD: { fontSize: 32 },
   fontLG: { fontSize: 48 },

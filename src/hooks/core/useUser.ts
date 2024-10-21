@@ -28,8 +28,7 @@ export function useUser() {
 
           if (!querySnapshot.empty) {
             const phoneData = querySnapshot.docs[0].data();
-            const formattedPhoneNumber = `${phoneData.phoneNumber.slice(0, 3)} ${phoneData.phoneNumber.slice(3)}`;
-            setPhoneNumber(formattedPhoneNumber || "No phone number found");
+            setPhoneNumber(phoneData.phoneNumber || "No phone number found");
           } else {
             setPhoneNumber("No phone number found");
           }

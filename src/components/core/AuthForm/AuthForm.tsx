@@ -47,7 +47,7 @@ export default function AuthForm({
   const canSubmit = canSubmitForm([email.value, password.value]);
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={{ flex: 1, paddingBottom: 20 }}>
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
       <ThemedView style={formStyles.container}>
         <ThemedView style={formStyles.formContent}>
           <ThemedText style={[formStyles.title, { fontSize: 24, fontWeight: "bold" }]}>

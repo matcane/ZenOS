@@ -6,7 +6,10 @@ import { useTheme } from "@/hooks/core";
 export default function MessagesLayout() {
   const theme = useTheme();
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        contentStyle: { backgroundColor: theme.background },
+      }}>
       <Stack.Screen
         name="index"
         options={{
@@ -41,7 +44,7 @@ export default function MessagesLayout() {
         options={{
           presentation: "modal",
           animation: "none",
-          headerTitle: "ConversationModal",
+          headerTitle: "",
           headerTintColor: theme.text,
           headerStyle: {
             backgroundColor: theme.background,

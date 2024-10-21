@@ -34,7 +34,10 @@ export const useAuthStore = create<TUser>((set) => ({
       await firestore()
         .collection("phoneNumbers")
         .add({ user_uid: auth().currentUser?.uid, phoneNumber: generatedPhoneNumber });
-      set({ phoneNumber: generatedPhoneNumber, isLoading: false });
+      set({
+        phoneNumber: `${generatedPhoneNumber.slice(0, 3)} ${generatedPhoneNumber.slice(3)}`,
+        isLoading: false,
+      });
     } catch (e: any) {
       const err = e as FirebaseError;
       set({ errorData: err.code });
