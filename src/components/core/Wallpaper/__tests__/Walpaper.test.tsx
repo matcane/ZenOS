@@ -9,6 +9,10 @@ jest.mock("@assets/images/bg.webp", () => ({
   uri: "mocked-image-uri",
 }));
 
+jest.mock("expo-router", () => ({
+  useSegments: jest.fn(() => []),
+}));
+
 describe("Wallpaper component", () => {
   it("renders correctly", () => {
     const { toJSON } = render(<Wallpaper />);

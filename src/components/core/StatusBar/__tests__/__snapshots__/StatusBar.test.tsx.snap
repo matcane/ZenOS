@@ -6,10 +6,16 @@ exports[`StatusBar component renders correctly 1`] = `
     [
       {
         "alignItems": "center",
+        "bottom": 0,
         "flexDirection": "row",
-        "height": 20,
+        "height": 32,
         "justifyContent": "space-between",
-        "paddingHorizontal": 18,
+        "left": 0,
+        "paddingHorizontal": 20,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "zIndex": 999,
       },
       undefined,
     ]
@@ -29,9 +35,7 @@ exports[`StatusBar component renders correctly 1`] = `
         },
       ]
     }
-  >
-    00:00
-  </Text>
+  />
   <View
     style={
       {

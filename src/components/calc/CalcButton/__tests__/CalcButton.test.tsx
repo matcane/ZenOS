@@ -1,13 +1,6 @@
 import { render, fireEvent } from "@testing-library/react-native";
 
-import { baseStyle } from "@/styles/baseStyle";
-import { coreStyles } from "@/styles/core";
-import { Colors } from "@/theme";
-
 import CalcButton from "../CalcButton";
-
-const { justifyCenter } = baseStyle;
-const { container } = coreStyles;
 
 const ITEM_WIDTH = 50;
 
@@ -22,6 +15,28 @@ const props = {
   isLast: false,
   itemWidth: ITEM_WIDTH,
 };
+
+jest.mock("@react-native-firebase/auth", () => {
+  return {
+    onAuthStateChanged: jest.fn(),
+    signInWithEmailAndPassword: jest.fn(),
+    createUserWithEmailAndPassword: jest.fn(),
+    signOut: jest.fn(),
+  };
+});
+
+jest.mock("@react-native-firebase/firestore", () => {
+  return {
+    collection: jest.fn(() => ({
+      doc: jest.fn(() => ({
+        get: jest.fn(() => Promise.resolve({ exists: true, data: () => ({}) })),
+        set: jest.fn(() => Promise.resolve()),
+        update: jest.fn(() => Promise.resolve()),
+        delete: jest.fn(() => Promise.resolve()),
+      })),
+    })),
+  };
+});
 
 describe("CalcButton component", () => {
   it("renders correctly", () => {
@@ -56,14 +71,13 @@ describe("CalcButton component", () => {
 
     const buttonContainer = getByTestId("calc-button");
     const style = buttonContainer.props.style;
-    expect(style).toEqual({
-      ...container,
-      ...justifyCenter,
-      opacity: 1,
-      height: ITEM_WIDTH,
-      width: ITEM_WIDTH * 2,
-      backgroundColor: Colors.light.primary,
-    });
+    expect(style).toEqual([
+      { alignItems: "center", padding: 20 },
+      { justifyContent: "center" },
+      { borderRadius: 999 },
+      { margin: 10 },
+      { backgroundColor: "#2196f3", height: 30, width: 80 },
+    ]);
   });
 
   it("has correct styles when isLast is false", () => {
@@ -71,14 +85,13 @@ describe("CalcButton component", () => {
 
     const buttonContainer = getByTestId("calc-button");
     const style = buttonContainer.props.style;
-    expect(style).toEqual({
-      ...container,
-      ...justifyCenter,
-      opacity: 1,
-      height: ITEM_WIDTH,
-      width: ITEM_WIDTH,
-      backgroundColor: Colors.light.container,
-    });
+    expect(style).toEqual([
+      { alignItems: "center", padding: 20 },
+      { justifyContent: "center" },
+      { borderRadius: 999 },
+      { margin: 10 },
+      { backgroundColor: "#a0a0a0", height: 30, width: 30 },
+    ]);
   });
 
   it("calls onPress when pressed", () => {
