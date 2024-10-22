@@ -7,7 +7,7 @@ import { coreStyles } from "@/styles/core";
 
 const { actionButton } = coreStyles;
 
-type TIconName = "play" | "pause" | "repeat" | "message-text";
+type TIconName = "play" | "pause" | "repeat" | "message-text" | "camera-flip" | "none";
 type TVariants = "primary" | "secondary";
 
 type ActionButtonProps = {
@@ -31,7 +31,9 @@ export default function ActionButton({ variant, active, iconName, style, fn }: A
       testID="action-button"
       onPress={active && fn}
       style={[actionButton, buttonSize, { backgroundColor: backgroudColor }, style]}>
-      <MaterialCommunityIcons name={iconName} size={iconSize.height} color="white" />
+      {iconName !== "none" && (
+        <MaterialCommunityIcons name={iconName} size={iconSize.height} color="white" />
+      )}
     </TouchableOpacity>
   );
 }

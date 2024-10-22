@@ -46,6 +46,14 @@ module.exports = {
           backgroundColor: "#000000",
         },
       ],
+      [
+        "expo-camera",
+        {
+          cameraPermission: "Allow $(PRODUCT_NAME) to access your camera",
+          microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone",
+          recordAudioAndroid: true,
+        },
+      ],
     ],
     extra: {
       eas: {
