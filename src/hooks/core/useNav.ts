@@ -23,6 +23,15 @@ export function useNav() {
   };
 
   const backNavigation = () => {
+    if (
+      segments.length === 1 ||
+      ((segments.length === 3 || segments.length === 2) &&
+        segments[1].startsWith("(") &&
+        segments[1].endsWith(")"))
+    ) {
+      setStatusBarColor(undefined);
+      setNavBarColor(undefined);
+    }
     router.dismiss();
   };
 
