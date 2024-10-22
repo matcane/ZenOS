@@ -2,6 +2,7 @@ import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
 import { TMessage, useMessages } from "@/hooks/messages/useMessages";
 import { baseStyle } from "@/styles/baseStyle";
+import { messagesStyles } from "@/styles/messages";
 
 export default function ChatMessage({ item }: { item: TMessage }) {
   const theme = useTheme();
@@ -14,10 +15,7 @@ export default function ChatMessage({ item }: { item: TMessage }) {
       ]}>
       <ThemedText
         style={[
-          { maxWidth: "90%" },
-          baseStyle.textLeft,
-          baseStyle.roundedLG,
-          baseStyle.paddingLG,
+          messagesStyles.chatMessage,
           currentPhoneNumber === item.author
             ? { backgroundColor: theme.primary }
             : { backgroundColor: theme.container },

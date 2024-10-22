@@ -1,18 +1,17 @@
 import { FlatList } from "react-native";
 
-import { SettingsField, ThemedView } from "@/components/core";
+import { ThemedView } from "@/components/core";
+import { SettingsField } from "@/components/settings";
 import { useThemeStore } from "@/store/core";
 import { baseStyle } from "@/styles/baseStyle";
 import { Colors } from "@/theme";
-
-const { flexGrow, paddingLG } = baseStyle;
 
 export default function Theme() {
   const themeSettings = [{ name: "Dark Mode", toggle: true, icon: "" }];
   const { isDark, toggleMode } = useThemeStore();
 
   return (
-    <ThemedView style={[flexGrow, paddingLG]}>
+    <ThemedView style={[baseStyle.flexGrow, baseStyle.paddingLG]}>
       <FlatList
         data={themeSettings}
         renderItem={({ item, index }) => (

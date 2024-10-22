@@ -8,7 +8,6 @@ import { baseStyle } from "@/styles/baseStyle";
 import { coreStyles } from "@/styles/core";
 import { Colors } from "@/theme";
 
-const { sizeSM } = baseStyle;
 const { navigationBarContainer, backNavButton } = coreStyles;
 
 export default function NavigationBar() {
@@ -16,7 +15,7 @@ export default function NavigationBar() {
   const segments = useSegments();
   const { isRoot, navBarColor, homeNavigation, backNavigation } = useNav();
 
-  const iconSize = sizeSM.height;
+  const iconSize = baseStyle.sizeSM.height;
   const backgroundColor = isRoot ? undefined : { backgroundColor: navBarColor };
   const navBarButtonHitSlop = {
     bottom: 15,

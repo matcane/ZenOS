@@ -6,7 +6,7 @@ import { ChatMessageInfo } from "@/components/messages";
 import { useMessages } from "@/hooks/messages";
 import { useHiddenNumbersStore } from "@/store/messages";
 import { baseStyle } from "@/styles/baseStyle";
-import { coreStyles } from "@/styles/core";
+import { messagesStyles } from "@/styles/messages";
 
 export default function Page() {
   const { messagesList } = useMessages();
@@ -28,7 +28,7 @@ export default function Page() {
         fn={() => router.push("messages/modals/ChatStarterModal")}
         iconName="message-text"
         variant="primary"
-        style={coreStyles.newMessage}
+        style={messagesStyles.newMessage}
       />
     </ThemedView>
   );

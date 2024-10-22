@@ -1,16 +1,15 @@
 import { router } from "expo-router";
 import { FlatList } from "react-native";
 
-import { SettingsField, ThemedView } from "@/components/core";
+import { ThemedView } from "@/components/core";
+import { SettingsField } from "@/components/settings";
 import { APPS, PINNED_APPS } from "@/constants/core";
 import { baseStyle } from "@/styles/baseStyle";
-
-const { flexGrow, paddingLG } = baseStyle;
 
 export default function Page() {
   const appList = [...APPS, ...PINNED_APPS];
   return (
-    <ThemedView style={[flexGrow, paddingLG]}>
+    <ThemedView style={[baseStyle.flexGrow, baseStyle.paddingLG]}>
       <FlatList
         data={appList}
         renderItem={({ item, index }) => (

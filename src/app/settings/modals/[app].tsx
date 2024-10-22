@@ -7,8 +7,6 @@ import { APPS, APPS_ICON, APPS_ICON_SOURCE, PINNED_APPS } from "@/constants/core
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
 
-const { fontSM, fontMD, flexGrow, itemsCenter, paddingBottomXL } = baseStyle;
-
 export default function Page() {
   const theme = useTheme();
   const { slug } = useLocalSearchParams();
@@ -19,11 +17,11 @@ export default function Page() {
   if (!app) return null;
 
   return (
-    <ThemedView style={[flexGrow, itemsCenter]}>
+    <ThemedView style={[baseStyle.flexGrow, baseStyle.itemsCenter]}>
       <Image source={APPS_ICON[app.icon]} />
-      <ThemedText style={fontMD}>{app.name}</ThemedText>
-      <ThemedText style={[fontSM, flexGrow]}>{app.version}</ThemedText>
-      <ThemedText style={paddingBottomXL}>
+      <ThemedText style={baseStyle.fontMD}>{app.name}</ThemedText>
+      <ThemedText style={[baseStyle.fontSM, baseStyle.flexGrow]}>{app.version}</ThemedText>
+      <ThemedText style={baseStyle.paddingBottomXL}>
         <Link
           target="_blank"
           style={{ color: theme.primary }}

@@ -5,8 +5,6 @@ import { APPS, PINNED_APPS } from "@/constants/core";
 import { useNav } from "@/hooks/core/useNav";
 import { baseStyle } from "@/styles/baseStyle";
 
-const { flexGrow, transparent, paddingTopXL } = baseStyle;
-
 const screenWidth = Dimensions.get("window").width;
 const numColumns = 4;
 const itemWidth = screenWidth / numColumns;
@@ -16,7 +14,7 @@ export default function Page() {
 
   return (
     <>
-      <ThemedView style={[flexGrow, transparent, paddingTopXL]}>
+      <ThemedView style={[baseStyle.flexGrow, baseStyle.transparent, baseStyle.paddingTopXL]}>
         <FlatList
           data={APPS}
           renderItem={({ item, index }) => (
@@ -26,7 +24,7 @@ export default function Page() {
           numColumns={numColumns}
         />
       </ThemedView>
-      <ThemedView style={transparent}>
+      <ThemedView style={baseStyle.transparent}>
         <FlatList
           data={PINNED_APPS}
           renderItem={({ item, index }) => (

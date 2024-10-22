@@ -1,13 +1,11 @@
 import { Dimensions, FlatList, ScrollView } from "react-native";
 
-import { ThemedText, ThemedView, CalcButton } from "@/components/core";
+import { CalcButton } from "@/components/calc";
+import { ThemedText, ThemedView } from "@/components/core";
 import { BUTTONS } from "@/constants/calc";
 import { useCalc } from "@/hooks/calc/";
 import { baseStyle } from "@/styles/baseStyle";
-import { coreStyles } from "@/styles/core";
-
-const { fontLG, fontMD, textCenter, flexGrow, flexGrowNone } = baseStyle;
-const { calcDisplay, calcDisplayText } = coreStyles;
+import { calcStyles } from "@/styles/calc";
 
 const screenWidth = Dimensions.get("window").width;
 const numColumns = 4;
@@ -17,14 +15,18 @@ export default function Page() {
   const { ref, equation, showResult, result, handleEquation } = useCalc();
   return (
     <>
-      <ThemedView style={[flexGrow, calcDisplay]}>
-        <ScrollView ref={ref} horizontal={true} style={flexGrowNone}>
-          <ThemedText numberOfLines={1} style={[fontLG, textCenter, calcDisplayText]}>
+      <ThemedView style={[baseStyle.flexGrow, calcStyles.calcDisplay]}>
+        <ScrollView ref={ref} horizontal={true} style={baseStyle.flexGrowNone}>
+          <ThemedText
+            numberOfLines={1}
+            style={[baseStyle.fontLG, baseStyle.textCenter, calcStyles.calcDisplayText]}>
             {equation}
           </ThemedText>
         </ScrollView>
-        <ScrollView horizontal={true} style={flexGrowNone}>
-          <ThemedText numberOfLines={1} style={[fontMD, textCenter, calcDisplayText]}>
+        <ScrollView horizontal={true} style={baseStyle.flexGrowNone}>
+          <ThemedText
+            numberOfLines={1}
+            style={[baseStyle.fontMD, baseStyle.textCenter, calcStyles.calcDisplayText]}>
             {showResult && result}
           </ThemedText>
         </ScrollView>

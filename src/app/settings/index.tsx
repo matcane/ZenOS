@@ -4,19 +4,18 @@ import { Link, router } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { FlatList, Pressable } from "react-native";
 
-import { SettingsField, ThemedText, ThemedView } from "@/components/core";
+import { ThemedText, ThemedView } from "@/components/core";
+import { SettingsField } from "@/components/settings";
 import { SETTINGS_FIELDS } from "@/constants/core";
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
-
-const { paddingLG, flexGrow, itemsCenter } = baseStyle;
 
 export default function Page() {
   const theme = useTheme();
   const osInfo = `${Application.applicationName} ${Application.nativeApplicationVersion}`;
 
   return (
-    <ThemedView style={[flexGrow, paddingLG]}>
+    <ThemedView style={[baseStyle.flexGrow, baseStyle.paddingLG]}>
       <FlatList
         data={SETTINGS_FIELDS}
         renderItem={({ item, index }) => (
@@ -39,9 +38,9 @@ export default function Page() {
         }}>
         <ThemedText style={baseStyle.textCenter}>Shutdown</ThemedText>
       </Pressable>
-      <ThemedView style={[itemsCenter, baseStyle.paddingTopLG]}>
+      <ThemedView style={[baseStyle.itemsCenter, baseStyle.paddingTopLG]}>
         <ThemedText>{osInfo}</ThemedText>
-        <ThemedText style={flexGrow}>
+        <ThemedText style={baseStyle.flexGrow}>
           Icons by{" "}
           <Link
             target="_blank"

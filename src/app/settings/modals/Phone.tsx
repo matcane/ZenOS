@@ -4,27 +4,23 @@ import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
 import { useAuthStore } from "@/store/core";
 import { baseStyle } from "@/styles/baseStyle";
-import { coreStyles } from "@/styles/core";
-
-const { firstSettingsFieldItem, lastSettingsFieldItem } = coreStyles;
-
-const { flexGrow, paddingLG, justifyBetween, flexRow, paddingMD } = baseStyle;
+import { settingsStyles } from "@/styles/settings";
 
 export default function Phone() {
   const theme = useTheme();
   const containerStyles = [
     { backgroundColor: theme.container },
-    flexRow,
-    paddingMD,
-    justifyBetween,
-    firstSettingsFieldItem,
-    lastSettingsFieldItem,
+    baseStyle.flexRow,
+    baseStyle.paddingMD,
+    baseStyle.justifyBetween,
+    settingsStyles.firstSettingsFieldItem,
+    settingsStyles.lastSettingsFieldItem,
   ];
 
   const phoneNumber = useAuthStore((state) => state.phoneNumber);
 
   return (
-    <ThemedView style={[flexGrow, paddingLG]}>
+    <ThemedView style={[baseStyle.flexGrow, baseStyle.paddingLG]}>
       <Pressable style={containerStyles}>
         <ThemedText>Phone Number</ThemedText>
         <ThemedText>{phoneNumber}</ThemedText>

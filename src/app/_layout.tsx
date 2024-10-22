@@ -11,8 +11,6 @@ import { baseStyle } from "@/styles/baseStyle";
 
 SplashScreen.preventAutoHideAsync();
 
-const { flexGrow } = baseStyle;
-
 export default function RootLayout() {
   const [loaded, setLoaded] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -76,7 +74,7 @@ function RootLayoutNav() {
   }, [setDateTime]);
 
   return (
-    <ThemedView style={flexGrow}>
+    <ThemedView style={baseStyle.flexGrow}>
       <Wallpaper>
         <StatusBar />
         <Slot />

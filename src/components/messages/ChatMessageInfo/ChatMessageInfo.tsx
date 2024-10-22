@@ -6,6 +6,7 @@ import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
 import { TFireStoreMessage, useMessages } from "@/hooks/messages/useMessages";
 import { baseStyle } from "@/styles/baseStyle";
+import { messagesStyles } from "@/styles/messages";
 
 export default function ChatMessageInfo({ item }: { item: TFireStoreMessage }) {
   const theme = useTheme();
@@ -21,25 +22,12 @@ export default function ChatMessageInfo({ item }: { item: TFireStoreMessage }) {
         })
       }
       android_ripple={{ color: theme.primary }}
-      style={[
-        baseStyle.justifyAround,
-        baseStyle.marginLG,
-        baseStyle.roundedLG,
-        baseStyle.heightXL,
-        baseStyle.flexRow,
-        { backgroundColor: theme.container },
-      ]}>
-      <ThemedView style={[baseStyle.transparent, baseStyle.paddingSM, baseStyle.marginLeftSM]}>
+      style={[messagesStyles.chatMessageInfoButton, { backgroundColor: theme.container }]}>
+      <ThemedView style={messagesStyles.chatMessageInfoAvatar}>
         <FontAwesome6 name="user-large" size={48} color={theme.text} />
       </ThemedView>
       <ThemedView style={[baseStyle.transparent, baseStyle.flexGrow]}>
-        <ThemedView
-          style={[
-            baseStyle.flexRow,
-            baseStyle.justifyBetween,
-            baseStyle.transparent,
-            baseStyle.marginRightMD,
-          ]}>
+        <ThemedView style={messagesStyles.chatMessageInfoBody}>
           <ThemedText style={[baseStyle.paddingLeftSM, { fontWeight: "bold" }]}>
             {item.data.chat_members.filter((member: string) => member !== currentPhoneNumber)}
           </ThemedText>

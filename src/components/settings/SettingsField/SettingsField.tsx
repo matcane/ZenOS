@@ -1,16 +1,11 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Pressable, PressableProps, Image, Switch, SwitchProps } from "react-native";
 
+import { ThemedText } from "@/components/core";
 import { SETTINGS_ICON, TSettingField, APPS_ICON } from "@/constants/core";
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
-import { coreStyles } from "@/styles/core";
-
-import ThemedText from "../ThemedText/ThemedText";
-
-const { sizeMD, flexGrow } = baseStyle;
-const { settingsFieldIcon, settingsFieldItem, firstSettingsFieldItem, lastSettingsFieldItem } =
-  coreStyles;
+import { settingsStyles } from "@/styles/settings";
 
 const Icon = { ...APPS_ICON, ...SETTINGS_ICON };
 
@@ -33,12 +28,16 @@ const SwitchOrChevron = ({
   return toggle ? (
     <Switch {...switchProps} />
   ) : (
-    <MaterialCommunityIcons name="chevron-right" size={sizeMD.height} color={theme.text} />
+    <MaterialCommunityIcons
+      name="chevron-right"
+      size={baseStyle.sizeMD.height}
+      color={theme.text}
+    />
   );
 };
 
 const IconRenderer = ({ icon }: { icon?: string }) => {
-  return icon ? <Image source={Icon[icon]} style={settingsFieldIcon} /> : null;
+  return icon ? <Image source={Icon[icon]} style={settingsStyles.settingsFieldIcon} /> : null;
 };
 
 export default function SettingsField({
@@ -52,15 +51,15 @@ export default function SettingsField({
 
   const containerStyles = [
     { backgroundColor: theme.container },
-    settingsFieldItem,
-    isFirst && firstSettingsFieldItem,
-    isLast && lastSettingsFieldItem,
+    settingsStyles.settingsFieldItem,
+    isFirst && settingsStyles.firstSettingsFieldItem,
+    isLast && settingsStyles.lastSettingsFieldItem,
   ];
 
   return (
     <Pressable style={containerStyles} {...rest}>
       <IconRenderer icon={setting.icon} />
-      <ThemedText style={flexGrow}>{setting.name}</ThemedText>
+      <ThemedText style={baseStyle.flexGrow}>{setting.name}</ThemedText>
       <SwitchOrChevron toggle={setting.toggle} switchProps={switchProps} theme={theme} />
     </Pressable>
   );

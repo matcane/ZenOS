@@ -1,14 +1,12 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Pressable, TouchableOpacityProps } from "react-native";
 
+import { ThemedText } from "@/components/core";
 import { TButton } from "@/constants/calc";
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
 import { coreStyles } from "@/styles/core";
 
-import ThemedText from "../ThemedText/ThemedText";
-
-const { fontMD, justifyCenter, roundedFull, marginMD } = baseStyle;
 const { container } = coreStyles;
 
 type CalcButtonProps = TouchableOpacityProps & {
@@ -30,23 +28,29 @@ export default function CalcButton({ isLast, button, itemWidth, ...rest }: CalcB
       : theme.container;
   const width = itemWidth * (isLast ? 2 : 1);
 
-  const iconSize = fontMD.fontSize;
+  const iconSize = baseStyle.fontMD.fontSize;
 
   const additionalStyles = {
-    height: itemWidth - marginMD.margin * 2,
-    width: width - marginMD.margin * 2,
+    height: itemWidth - baseStyle.marginMD.margin * 2,
+    width: width - baseStyle.marginMD.margin * 2,
     backgroundColor: backgroundColor,
   };
 
   return (
     <Pressable
       testID="calc-button"
-      style={[container, justifyCenter, roundedFull, marginMD, additionalStyles]}
+      style={[
+        container,
+        baseStyle.justifyCenter,
+        baseStyle.roundedFull,
+        baseStyle.marginMD,
+        additionalStyles,
+      ]}
       {...rest}>
       {button.iconName ? (
         <FontAwesome6 testID="icon" name={button.iconName} size={iconSize} color={theme.text} />
       ) : (
-        <ThemedText testID="text" style={fontMD}>
+        <ThemedText testID="text" style={baseStyle.fontMD}>
           {button.char}
         </ThemedText>
       )}

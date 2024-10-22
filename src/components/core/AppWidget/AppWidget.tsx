@@ -7,7 +7,6 @@ import { Colors } from "@/theme";
 
 import ThemedText from "../ThemedText/ThemedText";
 
-const { textCenter } = baseStyle;
 const { container } = coreStyles;
 
 type AppWidgetProps = PressableProps & {
@@ -22,7 +21,7 @@ export default function AppWidget({ app, itemWidth, onlyIcon, ...rest }: AppWidg
     <Pressable testID="pressable" style={[container, { width: itemWidth }]} {...rest}>
       <Image source={APPS_ICON[app.icon]} testID="icon" />
       {onlyIcon ? undefined : (
-        <ThemedText style={[textCenter, additionalStyles]} numberOfLines={1}>
+        <ThemedText style={[baseStyle.textCenter, additionalStyles]} numberOfLines={1}>
           {app.name}
         </ThemedText>
       )}

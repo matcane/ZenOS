@@ -5,7 +5,6 @@ import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
 import { coreStyles } from "@/styles/core";
 
-const { sizeMD, sizeLG, sizeXL } = baseStyle;
 const { actionButton } = coreStyles;
 
 type TIconName = "play" | "pause" | "repeat" | "message-text";
@@ -21,8 +20,8 @@ type ActionButtonProps = {
 
 export default function ActionButton({ variant, active, iconName, style, fn }: ActionButtonProps) {
   const theme = useTheme();
-  const buttonSize = variant === "primary" ? sizeXL : sizeLG;
-  const iconSize = variant === "primary" ? sizeLG : sizeMD;
+  const buttonSize = variant === "primary" ? baseStyle.sizeXL : baseStyle.sizeLG;
+  const iconSize = variant === "primary" ? baseStyle.sizeLG : baseStyle.sizeMD;
   const backgroudColor = variant === "primary" ? theme.primary : theme.container;
 
   if (!active) return null;
