@@ -22,7 +22,12 @@ export default function StatusBar() {
   const statusBarColor = useThemeStore((state) => state.statusBarColor);
 
   const backgroundColor = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
-  const color = segments.length > 0 ? theme.text : Colors.dark.text;
+  const color =
+    segments.length > 0
+      ? segments[0] === "camera" && segments.length === 1
+        ? theme.background
+        : theme.text
+      : Colors.dark.text;
 
   if ((segments.length === 1 && segments[0] === "sign-in") || segments[0] === "sign-up")
     return null;
