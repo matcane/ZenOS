@@ -24,7 +24,7 @@ export default function StatusBar() {
   const backgroundColor = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
   const color =
     segments.length > 0
-      ? segments[0] === "camera"
+      ? segments[0] === "camera" && segments.length === 1
         ? theme.background
         : theme.text
       : Colors.dark.text;

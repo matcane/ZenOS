@@ -12,7 +12,11 @@ const { wallpaper } = coreStyles;
 export default function Wallpaper({ children }: PropsWithChildren) {
   const segments = useSegments();
 
-  if ((segments.length === 1 && segments[0] === "sign-in") || segments[0] === "sign-up")
+  if (
+    (segments.length === 1 && segments[0] === "sign-in") ||
+    segments[0] === "sign-up" ||
+    segments[0] === "camera"
+  )
     return <View style={[wallpaper, baseStyle.transparent]}>{children}</View>;
 
   return (

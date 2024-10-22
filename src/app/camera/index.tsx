@@ -1,39 +1,16 @@
-import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
+import { CameraView } from "expo-camera";
 import * as FileSystem from "expo-file-system";
-import { useRef, useState } from "react";
+import { router } from "expo-router";
 
 import { ActionButton, ThemedView } from "@/components/core";
+import { useCamera } from "@/hooks/camera";
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
 
 export default function Page() {
   const theme = useTheme();
-  const [facing, setFacing] = useState<CameraType>("back");
-  const [permission, requestPermission] = useCameraPermissions();
-  const cameraRef = useRef<CameraView | null>(null);
-
-  const toggleCameraFacing = () => setFacing((current) => (current === "back" ? "front" : "back"));
-
-  const takePhoto = async () => {
-    if (cameraRef.current) {
-      try {
-        const folderUri = `${FileSystem.documentDirectory}camera/images/`;
-        const folderInfo = await FileSystem.getInfoAsync(folderUri);
-
-        if (!folderInfo.exists) {
-          await FileSystem.makeDirectoryAsync(folderUri, { intermediates: true });
-        }
-
-        const photo = await cameraRef.current.takePictureAsync();
-        const fileUri = `${folderUri}photo_${Date.now()}.jpg`;
-        if (photo) await FileSystem.moveAsync({ from: photo.uri, to: fileUri });
-
-        console.log("Photo saved to:", fileUri);
-      } catch (error) {
-        console.error("Error taking photo:", error);
-      }
-    }
-  };
+  const { files, facing, permission, cameraRef, takePhoto, toggleCameraFacing, requestPermission } =
+    useCamera();
 
   if (!permission) {
     requestPermission();
@@ -65,11 +42,17 @@ export default function Page() {
           style={{ right: "25%", marginRight: -20, bottom: 0, marginBottom: 35 }}
         />
         <ActionButton
+          disabled={files.length === 0}
           iconName={"none"}
-          fn={toggleCameraFacing}
+          fn={() => router.push("camera/modals/Preview")}
           variant="secondary"
           active={true}
           style={{ left: "25%", marginLeft: -20, bottom: 0, marginBottom: 35 }}
+          img_uri={
+            files.length > 0
+              ? `${FileSystem.documentDirectory}camera/images/${files[files.length - 1]}`
+              : undefined
+          }
         />
       </CameraView>
     </ThemedView>

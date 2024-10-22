@@ -1,3 +1,4 @@
+import * as FileSystem from "expo-file-system";
 import { router, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as StatusBarSettings from "expo-status-bar";
@@ -18,6 +19,11 @@ export default function RootLayout() {
   useEffect(() => {
     const prepareApp = async () => {
       StatusBarSettings.setStatusBarHidden(true);
+      const folderUri = `${FileSystem.documentDirectory}camera/images/`;
+      const folderInfo = await FileSystem.getInfoAsync(folderUri);
+      if (!folderInfo.exists) {
+        await FileSystem.makeDirectoryAsync(folderUri, { intermediates: true });
+      }
       setLoaded(true);
     };
 
