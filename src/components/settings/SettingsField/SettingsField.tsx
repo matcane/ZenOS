@@ -1,5 +1,5 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Pressable, PressableProps, Image, Switch, SwitchProps } from "react-native";
+import { Pressable, PressableProps, Image, Switch, SwitchProps, TextProps } from "react-native";
 
 import { ThemedText } from "@/components/core";
 import { SETTINGS_ICON, TSettingField, APPS_ICON } from "@/constants/core";
@@ -11,8 +11,10 @@ const Icon = { ...APPS_ICON, ...SETTINGS_ICON };
 
 type SettingsFieldProps = PressableProps & {
   setting: TSettingField;
+  blank?: boolean;
   isFirst: boolean;
   isLast: boolean;
+  textProps?: TextProps;
   switchProps?: SwitchProps;
 };
 
@@ -42,8 +44,10 @@ const IconRenderer = ({ icon }: { icon?: string }) => {
 
 export default function SettingsField({
   setting,
+  blank,
   isFirst,
   isLast,
+  textProps,
   switchProps,
   ...rest
 }: SettingsFieldProps) {
@@ -54,13 +58,18 @@ export default function SettingsField({
     settingsStyles.settingsFieldItem,
     isFirst && settingsStyles.firstSettingsFieldItem,
     isLast && settingsStyles.lastSettingsFieldItem,
+    blank && baseStyle.justifyCenter,
   ];
 
   return (
     <Pressable style={containerStyles} {...rest}>
-      <IconRenderer icon={setting.icon} />
-      <ThemedText style={baseStyle.flexGrow}>{setting.name}</ThemedText>
-      <SwitchOrChevron toggle={setting.toggle} switchProps={switchProps} theme={theme} />
+      {setting.icon && <IconRenderer icon={setting.icon} />}
+      <ThemedText style={baseStyle.flexGrow} {...textProps}>
+        {setting.name}
+      </ThemedText>
+      {!blank && (
+        <SwitchOrChevron toggle={setting.toggle} switchProps={switchProps} theme={theme} />
+      )}
     </Pressable>
   );
 }

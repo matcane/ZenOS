@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "icon": "@assets/icons/icons8-clock.webp",
   "navigationBar": {
-    "backgroundColor": "#e0e0e0",
+    "backgroundColor": "#f2f2f2",
     "dark": {
-      "backgroundColor": "#212121"
+      "backgroundColor": "#141414"
     }
   }
 }
