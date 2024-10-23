@@ -5,9 +5,11 @@ export const baseStyle = StyleSheet.create({
 
   fontXS: { fontSize: 12 },
   fontSM: { fontSize: 16 },
+  fontSMD: { fontSize: 24 },
   fontMD: { fontSize: 32 },
   fontLG: { fontSize: 48 },
   fontXL: { fontSize: 64 },
+  fontXXL: { fontSize: 128 },
 
   heightSM: { height: 16 },
   heightMD: { height: 32 },
