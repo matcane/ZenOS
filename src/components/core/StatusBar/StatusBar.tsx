@@ -22,15 +22,13 @@ export default function StatusBar() {
   const statusBarColor = useThemeStore((state) => state.statusBarColor);
 
   const backgroundColor = segments.length > 0 ? { backgroundColor: statusBarColor } : undefined;
-  const color =
-    segments.length > 0
-      ? segments[0] === "camera" && segments.length === 1
-        ? theme.background
-        : theme.text
-      : Colors.dark.text;
+  let color;
 
-  if ((segments.length === 1 && segments[0] === "sign-in") || segments[0] === "sign-up")
-    return null;
+  if (segments.length === 0) color = Colors.dark.text;
+  if (segments.length > 0) color = theme.text;
+  if (segments[0] === "camera" && segments.length === 1) color = Colors.dark.background;
+  if (segments[0] === "camera" && segments.length === 3) color = Colors.dark.text;
+  if (segments[0] === "sign-in" || segments[0] === "sign-up") color = theme.background;
 
   return (
     <View style={[statusBarContainer, backgroundColor]}>

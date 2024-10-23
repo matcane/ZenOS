@@ -11,12 +11,18 @@ type TNavigationBar = {
   dark: { backgroundColor: string };
 };
 
+type TStatusBar = {
+  backgroundColor: string;
+  dark: { backgroundColor: string };
+};
+
 export type TApp = {
   name: string;
   slug: string;
   version: string;
   icon: string;
   navigationBar?: TNavigationBar;
+  statusBar?: TStatusBar;
 };
 
 export const APPS = [settings, calc, clock];

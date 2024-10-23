@@ -2,5 +2,17 @@
   "name": "Camera",
   "slug": "camera",
   "version": "0.0.1",
-  "icon": "@assets/icons/icons8-camera.webp"
+  "icon": "@assets/icons/icons8-camera.webp",
+  "navigationBar": {
+    "backgroundColor": "#000000",
+    "dark": {
+      "backgroundColor": "#000000"
+    }
+  },
+  "statusBar": {
+    "backgroundColor": "#000000",
+    "dark": {
+      "backgroundColor": "#000000"
+    }
+  }
 }

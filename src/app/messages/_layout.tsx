@@ -13,6 +13,7 @@ export default function MessagesLayout() {
       <Stack.Screen
         name="index"
         options={{
+          animation: "none",
           header: () => (
             <ThemedView
               style={{

@@ -9,11 +9,10 @@ import { useSharedValue, useAnimatedStyle, withSpring, runOnJS } from "react-nat
 
 import { ThemedView } from "@/components/core";
 import { useCamera } from "@/hooks/camera";
-import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
+import { Colors } from "@/theme";
 
 export default function Preview() {
-  const theme = useTheme();
   const { files, deletePhoto } = useCamera();
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -72,13 +71,18 @@ export default function Preview() {
             headerTitle: files.length > 0 ? headerTitle : "",
             headerRight: () => (
               <Pressable onPress={handlePhotoDelete}>
-                <AntDesign name="delete" size={24} color={theme.text} />
+                <AntDesign name="delete" size={24} color={Colors.dark.text} />
               </Pressable>
             ),
           }}
         />
         <GestureDetector gesture={swipeGesture}>
-          <ThemedView style={[baseStyle.flexGrow, animatedStyle]}>
+          <ThemedView
+            style={[
+              baseStyle.flexGrow,
+              animatedStyle,
+              { backgroundColor: Colors.dark.background },
+            ]}>
             <Image
               source={`${FileSystem.documentDirectory}camera/images/${files[currentIndex]}`}
               style={{ width: "100%", height: "100%" }}

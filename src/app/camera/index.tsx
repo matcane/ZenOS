@@ -4,11 +4,10 @@ import { router } from "expo-router";
 
 import { ActionButton, ThemedView } from "@/components/core";
 import { useCamera } from "@/hooks/camera";
-import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
+import { Colors } from "@/theme";
 
 export default function Page() {
-  const theme = useTheme();
   const { files, facing, permission, cameraRef, takePhoto, toggleCameraFacing, requestPermission } =
     useCamera();
 
@@ -27,7 +26,7 @@ export default function Page() {
           active={true}
           style={{
             borderWidth: 8,
-            borderColor: theme.invBackground,
+            borderColor: Colors.light.background,
             right: "50%",
             marginRight: -30,
             bottom: 0,
@@ -39,7 +38,13 @@ export default function Page() {
           fn={toggleCameraFacing}
           variant="secondary"
           active={true}
-          style={{ right: "25%", marginRight: -20, bottom: 0, marginBottom: 35 }}
+          style={{
+            right: "25%",
+            marginRight: -20,
+            bottom: 0,
+            marginBottom: 35,
+            backgroundColor: Colors.dark.background,
+          }}
         />
         <ActionButton
           disabled={files.length === 0}

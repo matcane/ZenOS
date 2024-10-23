@@ -12,6 +12,7 @@ export function useNav() {
 
   const isDark = useThemeStore((state) => state.isDark);
   const navBarColor = useThemeStore((state) => state.navBarColor);
+  const statusBarColor = useThemeStore((state) => state.statusBarColor);
 
   const setNavBarColor = useThemeStore((state) => state.setNavBarColor);
   const setStatusBarColor = useThemeStore((state) => state.setStatusBarColor);
@@ -36,7 +37,7 @@ export function useNav() {
   };
 
   const handleNavigation = (item: TApp) => {
-    const { navigationBar } = item;
+    const { navigationBar, statusBar } = item;
 
     const navBarColor =
       navigationBar?.backgroundColor && navigationBar.dark?.backgroundColor
@@ -45,11 +46,18 @@ export function useNav() {
           : navigationBar.backgroundColor
         : theme.background;
 
+    const statusBarColor =
+      statusBar?.backgroundColor && statusBar.dark?.backgroundColor
+        ? isDark
+          ? statusBar.dark.backgroundColor
+          : statusBar.backgroundColor
+        : theme.background;
+
     setNavBarColor(navBarColor);
-    setStatusBarColor(theme.background);
+    setStatusBarColor(statusBarColor);
 
     router.navigate(item.slug);
   };
 
-  return { isRoot, navBarColor, homeNavigation, backNavigation, handleNavigation };
+  return { isRoot, navBarColor, statusBarColor, homeNavigation, backNavigation, handleNavigation };
 }

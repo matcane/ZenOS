@@ -1,13 +1,13 @@
 import { Stack } from "expo-router";
 
-import { useTheme } from "@/hooks/core";
+import { Colors } from "@/theme";
 
 export default function CameraLayout() {
-  const theme = useTheme();
   return (
     <Stack
       screenOptions={{
-        contentStyle: { backgroundColor: theme.background },
+        animation: "none",
+        contentStyle: { backgroundColor: Colors.dark.background },
       }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen
@@ -15,9 +15,9 @@ export default function CameraLayout() {
         options={{
           presentation: "modal",
           animation: "none",
-          headerTintColor: theme.text,
+          headerTintColor: Colors.dark.text,
           headerStyle: {
-            backgroundColor: theme.background,
+            backgroundColor: Colors.dark.background,
           },
         }}
       />
