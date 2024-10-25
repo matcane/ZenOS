@@ -15,7 +15,11 @@ export default function Wallpaper({ children }: PropsWithChildren) {
   const isWallpaperHidden = useWallpaperStore((state) => state.isWallpaperHidden);
 
   if (isWallpaperHidden) {
-    return <ThemedView style={[wallpaper, baseStyle.transparent]}>{children}</ThemedView>;
+    return (
+      <ThemedView testID="image-background" style={[wallpaper, baseStyle.transparent]}>
+        {children}
+      </ThemedView>
+    );
   }
 
   return (

@@ -6,7 +6,7 @@ type TWallpaperStore = {
 };
 
 const initialState = {
-  isWallpaperHidden: false,
+  isWallpaperHidden: true,
 };
 
 export const useWallpaperStore = create<TWallpaperStore>((set) => ({

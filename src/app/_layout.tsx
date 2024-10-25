@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { NavigationBar, StatusBar, Wallpaper, ThemedView } from "@/components/core";
 import { useUser } from "@/hooks/core";
-import { useAuthStore } from "@/store/core";
+import { useAuthStore, useWallpaperStore } from "@/store/core";
 import { useDateTimeStore } from "@/store/core/dateTimeStore";
 import { baseStyle } from "@/styles/baseStyle";
 
@@ -45,9 +45,10 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const setDateTime = useDateTimeStore((state) => state.setDateTime);
+  const setIsWallpaperHidden = useWallpaperStore((state) => state.setIsWallpaperHidden);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  const { user } = useUser();
+  const { user, fetchPhoneNumber } = useUser();
 
   useEffect(() => {
     const prepareApp = async () => {
@@ -56,12 +57,15 @@ function RootLayoutNav() {
       if (!user) {
         router.replace("sign-in");
       } else {
+        setIsWallpaperHidden(false);
         router.replace("");
       }
+
+      await fetchPhoneNumber();
     };
 
     prepareApp();
-  }, [isLoading, user]);
+  }, [fetchPhoneNumber, isLoading, setIsWallpaperHidden, user]);
 
   useEffect(() => {
     const hideSplashScreen = async () => {

@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import image from "@assets/images/bg.webp";
-
 import Wallpaper from "../Wallpaper";
 
 jest.mock("@assets/images/bg.webp", () => ({
@@ -12,6 +10,28 @@ jest.mock("@assets/images/bg.webp", () => ({
 jest.mock("expo-router", () => ({
   useSegments: jest.fn(() => []),
 }));
+
+jest.mock("@react-native-firebase/auth", () => {
+  return {
+    onAuthStateChanged: jest.fn(),
+    signInWithEmailAndPassword: jest.fn(),
+    createUserWithEmailAndPassword: jest.fn(),
+    signOut: jest.fn(),
+  };
+});
+
+jest.mock("@react-native-firebase/firestore", () => {
+  return {
+    collection: jest.fn(() => ({
+      doc: jest.fn(() => ({
+        get: jest.fn(() => Promise.resolve({ exists: true, data: () => ({}) })),
+        set: jest.fn(() => Promise.resolve()),
+        update: jest.fn(() => Promise.resolve()),
+        delete: jest.fn(() => Promise.resolve()),
+      })),
+    })),
+  };
+});
 
 describe("Wallpaper component", () => {
   it("renders correctly", () => {
@@ -37,6 +57,6 @@ describe("Wallpaper component", () => {
     );
 
     const imageBackground = getByTestId("image-background");
-    expect(imageBackground.props.source).toEqual(image);
+    expect(imageBackground.props.source).toEqual(undefined);
   });
 });

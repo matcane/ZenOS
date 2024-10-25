@@ -44,7 +44,7 @@ export default function Page() {
         <ThemedView style={[baseStyle.flexGrow, baseStyle.itemsCenter]}>
           <Stack.Screen
             options={{
-              headerTitle: currentCityIndex ? citiesNames[currentCityIndex - 1] : city!,
+              headerTitle: currentCityIndex ? citiesNames[currentCityIndex - 1] : city ? city : "",
               headerRight: () =>
                 true ? (
                   <View style={[baseStyle.flexRow, { columnGap: 30 }]}>
