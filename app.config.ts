@@ -1,3 +1,5 @@
+const isEasBuild = process.env.EAS_BUILD === "true";
+
 module.exports = {
   expo: {
     name: "ZenOS",
@@ -23,7 +25,7 @@ module.exports = {
         backgroundColor: "#000000",
       },
       package: "com.matcane.zenos",
-      googleServicesFile: "./google-services.json",
+      googleServicesFile: isEasBuild ? process.env.GOOGLE_SERVICES_JSON : "./google-services.json",
     },
     plugins: [
       "@react-native-firebase/app",
