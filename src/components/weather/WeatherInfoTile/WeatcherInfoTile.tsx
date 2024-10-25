@@ -1,6 +1,6 @@
-import { TInfoTile } from "@/app/weather";
 import { ThemedText, ThemedView } from "@/components/core";
 import { useTheme } from "@/hooks/core";
+import { TInfoTile } from "@/store/weather";
 import { baseStyle } from "@/styles/baseStyle";
 
 type WeatcherInfoTileProps = {
@@ -17,7 +17,7 @@ export default function WeatcherInfoTile({ item, itemWidth }: WeatcherInfoTilePr
         baseStyle.justifyCenter,
         baseStyle.marginMD,
         baseStyle.roundedLG,
-        { backgroundColor: theme.container },
+        { backgroundColor: theme.primary },
         { height: itemWidth / 2 },
         { width: itemWidth - baseStyle.marginMD.margin * 2 },
       ]}>

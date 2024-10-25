@@ -1,21 +1,27 @@
 import { WeatherApiResponse } from "@openmeteo/sdk/weather-api-response";
 import * as Location from "expo-location";
 import { fetchWeatherApi } from "openmeteo";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 
-import { TDailyData, TInfoTile } from "@/app/weather";
 import { weatherConditionsMap } from "@/constants/weather";
+import { TDailyData, TInfoTile, useCitiesStore, useWeatherStore } from "@/store/weather";
 import { getDirection } from "@/utils/weather";
 
 export function useWeather() {
   const [city, setCity] = useState<string | null>(null);
-  const [currentTemperature, setCurrentTemperature] = useState<number | null>(null);
-  const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
+  const [temperature, setTemperature] = useState<number[] | null>(null);
+  const [weatherCondition, setWeatherCondition] = useState<string[] | null>(null);
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [dailyData, setDailyData] = useState<TDailyData[] | null>(null);
-  const [infoTiles, setInfoTiles] = useState<TInfoTile[] | null>(null);
+  const [dailyData, setDailyData] = useState<TDailyData[][] | null>(null);
+  const [infoTiles, setInfoTiles] = useState<TInfoTile[][] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const setCityStore = useWeatherStore((state) => state.setCity);
+  const setCurrentTemperatureStore = useWeatherStore((state) => state.setTemperature);
+  const setWeatherConditionStore = useWeatherStore((state) => state.setWeatherCondition);
+
+  const citiesCords = useCitiesStore((state) => state.citiesCords);
 
   const getLocation = useCallback(async () => {
     try {
@@ -32,20 +38,21 @@ export function useWeather() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [setError, setLoading, setLocation]);
 
   const getCity = useCallback(async () => {
     if (!location) return;
     try {
       const geocode = await Location.reverseGeocodeAsync({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: location?.coords.latitude,
+        longitude: location?.coords.longitude,
       });
-      setCity(geocode[0]?.city || "Unknown");
+      setCity(geocode[0]?.city);
+      setCityStore(geocode[0]?.city);
     } catch {
       setError("Error fetching city name");
     }
-  }, [location]);
+  }, [location, setCityStore]);
 
   const fetchWeather = useCallback(async () => {
     if (!location) return;
@@ -53,8 +60,8 @@ export function useWeather() {
       setLoading(true);
 
       const params = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: [location?.coords.latitude, ...citiesCords.map((city) => city.latitude)],
+        longitude: [location?.coords.longitude, ...citiesCords.map((city) => city.longitude)],
         current: [
           "temperature_2m",
           "relative_humidity_2m",
@@ -72,18 +79,32 @@ export function useWeather() {
       const url = "https://api.open-meteo.com/v1/forecast";
       const responses = await fetchWeatherApi(url, params);
 
-      const { weatherData, currentDetails, dailyDetails } = parseWeatherData(responses[0]);
+      const allDailyData: TDailyData[][] = [];
+      const allInfoTiles: TInfoTile[][] = [];
+      const allCurrentTemperatures: number[] = [];
+      const allWeatherConditions: string[] = [];
 
-      setDailyData(dailyDetails);
-      setInfoTiles(currentDetails);
-      setWeatherCondition(weatherConditionsMap[weatherData.current.weatherCode]);
-      setCurrentTemperature(Math.floor(weatherData.current.temperature2m));
+      responses.forEach((response) => {
+        const { weatherData, currentDetails, dailyDetails } = parseWeatherData(response);
+
+        allDailyData.push(dailyDetails);
+        allInfoTiles.push(currentDetails);
+        allWeatherConditions.push(weatherConditionsMap[weatherData.current.weatherCode]);
+        allCurrentTemperatures.push(Math.floor(weatherData.current.temperature2m));
+      });
+
+      setDailyData(allDailyData);
+      setInfoTiles(allInfoTiles);
+      setWeatherCondition(allWeatherConditions);
+      setWeatherConditionStore(allWeatherConditions);
+      setTemperature(allCurrentTemperatures);
+      setCurrentTemperatureStore(allCurrentTemperatures);
     } catch {
       setError("Error fetching weather data");
     } finally {
       setLoading(false);
     }
-  }, [location]);
+  }, [citiesCords, location, setCurrentTemperatureStore, setWeatherConditionStore]);
 
   const parseWeatherData = (response: WeatherApiResponse) => {
     const utcOffsetSeconds = response.utcOffsetSeconds();
@@ -157,7 +178,7 @@ export function useWeather() {
   return {
     city,
     location,
-    currentTemperature,
+    temperature,
     weatherCondition,
     dailyData,
     infoTiles,

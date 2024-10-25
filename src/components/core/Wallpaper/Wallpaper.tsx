@@ -1,7 +1,7 @@
-import { useSegments } from "expo-router";
 import { PropsWithChildren } from "react";
 import { ImageBackground } from "react-native";
 
+import { useWallpaperStore } from "@/store/core";
 import { baseStyle } from "@/styles/baseStyle";
 import { coreStyles } from "@/styles/core";
 
@@ -12,9 +12,9 @@ import ThemedView from "../ThemedView/ThemedView";
 const { wallpaper } = coreStyles;
 
 export default function Wallpaper({ children }: PropsWithChildren) {
-  const segments = useSegments();
+  const isWallpaperHidden = useWallpaperStore((state) => state.isWallpaperHidden);
 
-  if (segments[0] === "sign-in" || segments[0] === "sign-up") {
+  if (isWallpaperHidden) {
     return <ThemedView style={[wallpaper, baseStyle.transparent]}>{children}</ThemedView>;
   }
 
