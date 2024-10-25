@@ -3,6 +3,7 @@ import camera from "@/config/apps/camera.json";
 import chrome from "@/config/apps/chrome.json";
 import clock from "@/config/apps/clock.json";
 import messages from "@/config/apps/messages.json";
+import notes from "@/config/apps/notes.json";
 import phone from "@/config/apps/phone.json";
 import settings from "@/config/apps/settings.json";
 import weather from "@/config/apps/weather.json";
@@ -26,7 +27,7 @@ export type TApp = {
   statusBar?: TStatusBar;
 };
 
-export const APPS = [settings, calc, clock, weather];
+export const APPS = [settings, calc, clock, weather, notes];
 
 export const PINNED_APPS = [phone, messages, chrome, camera];
 
@@ -39,6 +40,7 @@ export const APPS_ICON: Record<string, any> = {
   "@assets/icons/icons8-chrome.webp": require("@assets/icons/icons8-chrome.webp"),
   "@assets/icons/icons8-camera.webp": require("@assets/icons/icons8-camera.webp"),
   "@assets/icons/icons8-weather.webp": require("@assets/icons/icons8-weather.webp"),
+  "@assets/icons/icons8-notes.webp": require("@assets/icons/icons8-notes.webp"),
 };
 
 export const APPS_ICON_SOURCE: Record<string, any> = {
@@ -50,4 +52,5 @@ export const APPS_ICON_SOURCE: Record<string, any> = {
   "@assets/icons/icons8-chrome.webp": "https://icons8.com/icon/QBljOALaVp01/chrome",
   "@assets/icons/icons8-camera.webp": "https://icons8.com/icon/eKEI8q7Hjioq/camera",
   "@assets/icons/icons8-weather.webp": "https://icons8.com/icon/hRvc4cHKHpnU/weather",
+  "@assets/icons/icons8-notes.webp": "https://icons8.com/icon/55fqUsmHwQDN/notes",
 };

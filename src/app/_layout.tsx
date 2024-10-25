@@ -19,6 +19,7 @@ export default function RootLayout() {
   useEffect(() => {
     const prepareApp = async () => {
       StatusBarSettings.setStatusBarHidden(true);
+      StatusBarSettings.setStatusBarBackgroundColor("#000000", false);
       const folderUri = `${FileSystem.documentDirectory}camera/images/`;
       const folderInfo = await FileSystem.getInfoAsync(folderUri);
       if (!folderInfo.exists) {

@@ -11,6 +11,7 @@ module.exports = {
     scheme: "zenos",
     userInterfaceStyle: "dark",
     androidStatusBar: {
+      hidden: true,
       barStyle: "light-content",
       backgroundColor: "#000000",
     },
