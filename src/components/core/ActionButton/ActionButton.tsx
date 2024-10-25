@@ -8,7 +8,7 @@ import { coreStyles } from "@/styles/core";
 
 const { actionButton } = coreStyles;
 
-type TIconName = "play" | "pause" | "repeat" | "message-text" | "camera-flip" | "none";
+type TIconName = "play" | "pause" | "repeat" | "plus" | "message-text" | "camera-flip" | "none";
 type TVariants = "primary" | "secondary";
 
 type ActionButtonProps = {

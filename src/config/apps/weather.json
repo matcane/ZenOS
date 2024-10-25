@@ -1,0 +1,6 @@
+{
+  "name": "Weather",
+  "slug": "weather",
+  "version": "0.0.1",
+  "icon": "@assets/icons/icons8-weather.webp"
+}

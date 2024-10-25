@@ -5,21 +5,25 @@ export const baseStyle = StyleSheet.create({
 
   fontXS: { fontSize: 12 },
   fontSM: { fontSize: 16 },
+  fontSMD: { fontSize: 24 },
   fontMD: { fontSize: 32 },
   fontLG: { fontSize: 48 },
   fontXL: { fontSize: 64 },
+  fontXXL: { fontSize: 128 },
 
   heightSM: { height: 16 },
   heightMD: { height: 32 },
   heightLG: { height: 48 },
   heightXL: { height: 64 },
   heightXXL: { height: 128 },
+  heightFull: { height: "100%" },
 
   widthSM: { width: 16 },
   widthMD: { width: 32 },
   widthLG: { width: 48 },
   widthXL: { width: 64 },
   widthXXL: { width: 128 },
+  widthFull: { width: "100%" },
 
   sizeSM: { width: 16, height: 16 },
   sizeMD: { width: 32, height: 32 },
@@ -34,6 +38,16 @@ export const baseStyle = StyleSheet.create({
   roundedMD: { borderRadius: 10 },
   roundedLG: { borderRadius: 20 },
   roundedFull: { borderRadius: 999 },
+
+  roundedTop: { borderTopLeftRadius: 5, borderTopRightRadius: 5 },
+  roundedTopMD: { borderTopLeftRadius: 10, borderTopRightRadius: 10 },
+  roundedTopLG: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
+  roundedTopFull: { borderTopLeftRadius: 999, borderTopRightRadius: 999 },
+
+  roundedBottom: { borderBottomLeftRadius: 5, borderBottomRightRadius: 5 },
+  roundedBottomMD: { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 },
+  roundedBottomLG: { borderBottomLeftRadius: 20, borderBottomRightRadius: 20 },
+  roundedBottomFull: { borderBottomLeftRadius: 999, borderBottomRightRadius: 999 },
 
   flex: { flex: 1 },
   flexNone: { flex: 0 },

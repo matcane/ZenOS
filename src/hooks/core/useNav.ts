@@ -1,7 +1,7 @@
 import { router, useSegments } from "expo-router";
 
 import { TApp } from "@/constants/core";
-import { useThemeStore } from "@/store/core";
+import { useThemeStore, useWallpaperStore } from "@/store/core";
 
 import { useTheme } from "./useTheme";
 
@@ -9,6 +9,8 @@ export function useNav() {
   const theme = useTheme();
   const segments = useSegments();
   const isRoot = segments.length === 0;
+
+  const setIsWallpaperHidden = useWallpaperStore((state) => state.setIsWallpaperHidden);
 
   const isDark = useThemeStore((state) => state.isDark);
   const navBarColor = useThemeStore((state) => state.navBarColor);
@@ -18,6 +20,7 @@ export function useNav() {
   const setStatusBarColor = useThemeStore((state) => state.setStatusBarColor);
 
   const homeNavigation = () => {
+    setIsWallpaperHidden(false);
     setStatusBarColor(undefined);
     setNavBarColor(undefined);
     router.replace("");
@@ -30,6 +33,7 @@ export function useNav() {
         segments[1].startsWith("(") &&
         segments[1].endsWith(")"))
     ) {
+      setIsWallpaperHidden(false);
       setStatusBarColor(undefined);
       setNavBarColor(undefined);
     }
@@ -53,6 +57,7 @@ export function useNav() {
           : statusBar.backgroundColor
         : theme.background;
 
+    setIsWallpaperHidden(true);
     setNavBarColor(navBarColor);
     setStatusBarColor(statusBarColor);
 
