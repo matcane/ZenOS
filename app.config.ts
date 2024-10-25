@@ -10,11 +10,6 @@ module.exports = {
     icon: "./assets/images/icon.png",
     scheme: "zenos",
     userInterfaceStyle: "dark",
-    androidStatusBar: {
-      hidden: true,
-      barStyle: "light-content",
-      backgroundColor: "#000000",
-    },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/images/adaptive-icon.png",

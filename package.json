@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "expo-router/entry",
   "scripts": {
+    "eas-build-post-install": "cp $GOOGLE_SERVICES_JSON android/app/google-services.json",
     "start": "expo start",
     "prebuild": "expo prebuild -p android",
     "android": "expo run:android",

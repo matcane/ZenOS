@@ -1,7 +1,6 @@
 import * as FileSystem from "expo-file-system";
 import { router, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import * as StatusBarSettings from "expo-status-bar";
 import { useEffect, useState } from "react";
 
 import { NavigationBar, StatusBar, Wallpaper, ThemedView } from "@/components/core";
@@ -18,8 +17,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     const prepareApp = async () => {
-      StatusBarSettings.setStatusBarHidden(true);
-      StatusBarSettings.setStatusBarBackgroundColor("#000000", false);
       const folderUri = `${FileSystem.documentDirectory}camera/images/`;
       const folderInfo = await FileSystem.getInfoAsync(folderUri);
       if (!folderInfo.exists) {

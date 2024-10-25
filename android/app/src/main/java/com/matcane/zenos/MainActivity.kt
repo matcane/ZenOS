@@ -2,6 +2,7 @@ package com.matcane.zenos
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -16,6 +17,13 @@ class MainActivity : ReactActivity() {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
+
+    // Hide the status bar.
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+    // Remember that you should never show the action bar if the
+    // status bar is hidden, so hide that too if necessary.
+    actionBar?.hide()
+
     super.onCreate(null)
   }
 
