@@ -85,7 +85,7 @@ export const useCitiesStore = create<TCitiesStore>((set) => ({
 
       const updatedCitiesCords = citiesCordsState.filter((cords) => cords !== cordsToDelete);
 
-      if (indexToDelete === currentCityIndex) {
+      if (indexToDelete + 1 === currentCityIndex) {
         set({ currentCityIndex: null });
       }
 

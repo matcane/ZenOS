@@ -140,7 +140,11 @@ export function useWeather() {
         info: current.variables(5)!.value().toFixed(1).replace(".0", ""),
         infoUnit: "km/h",
       },
-      { title: "Rain", info: current.variables(2)!.value(), infoUnit: "%" },
+      {
+        title: "Rain",
+        info: current.variables(2)!.value().toFixed(1).replace(".0", ""),
+        infoUnit: "%",
+      },
       {
         title: "Humidity",
         info: Math.floor(current.variables(1)!.value()),
