@@ -5,7 +5,12 @@ import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable } from "react-native";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
-import { useSharedValue, useAnimatedStyle, withSpring, runOnJS } from "react-native-reanimated";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  runOnJS,
+} from "react-native-reanimated";
 
 import { ThemedView } from "@/components/core";
 import { useCamera } from "@/hooks/camera";
@@ -65,7 +70,7 @@ export default function Preview() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemedView>
+      <ThemedView style={{ backgroundColor: Colors.dark.background }}>
         <Stack.Screen
           options={{
             headerTitle: files.length > 0 ? headerTitle : "",
@@ -77,7 +82,7 @@ export default function Preview() {
           }}
         />
         <GestureDetector gesture={swipeGesture}>
-          <ThemedView
+          <Animated.View
             style={[
               baseStyle.flexGrow,
               animatedStyle,
@@ -87,7 +92,7 @@ export default function Preview() {
               source={`${FileSystem.documentDirectory}camera/images/${files[currentIndex]}`}
               style={{ width: "100%", height: "100%" }}
             />
-          </ThemedView>
+          </Animated.View>
         </GestureDetector>
       </ThemedView>
     </GestureHandlerRootView>
