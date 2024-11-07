@@ -1,6 +1,6 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Image } from "expo-image";
-import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, ViewStyle } from "react-native";
 
 import { useTheme } from "@/hooks/core";
 import { baseStyle } from "@/styles/baseStyle";
@@ -8,7 +8,16 @@ import { coreStyles } from "@/styles/core";
 
 const { actionButton } = coreStyles;
 
-type TIconName = "play" | "pause" | "repeat" | "plus" | "message-text" | "camera-flip" | "none";
+type TIconName =
+  | "play"
+  | "pause"
+  | "repeat"
+  | "plus"
+  | "message-text"
+  | "camera-flip"
+  | "flash"
+  | "flash-off"
+  | "none";
 type TVariants = "primary" | "secondary";
 
 type ActionButtonProps = {
@@ -19,7 +28,7 @@ type ActionButtonProps = {
   style: StyleProp<ViewStyle>;
   img_uri?: string;
   fn: () => void;
-};
+} & TouchableOpacityProps;
 
 export default function ActionButton({
   variant,
@@ -29,6 +38,7 @@ export default function ActionButton({
   style,
   img_uri,
   fn,
+  ...rest
 }: ActionButtonProps) {
   const theme = useTheme();
   const buttonSize = variant === "primary" ? baseStyle.sizeXL : baseStyle.sizeLG;
@@ -42,7 +52,8 @@ export default function ActionButton({
       disabled={disabled}
       testID="action-button"
       onPress={active && fn}
-      style={[actionButton, buttonSize, { backgroundColor: backgroudColor }, style]}>
+      style={[actionButton, buttonSize, { backgroundColor: backgroudColor }, style]}
+      {...rest}>
       {iconName !== "none" ? (
         <MaterialCommunityIcons name={iconName} size={iconSize.height} color="white" />
       ) : (

@@ -17,10 +17,15 @@ export default function RootLayout() {
 
   useEffect(() => {
     const prepareApp = async () => {
-      const folderUri = `${FileSystem.documentDirectory}camera/images/`;
-      const folderInfo = await FileSystem.getInfoAsync(folderUri);
-      if (!folderInfo.exists) {
-        await FileSystem.makeDirectoryAsync(folderUri, { intermediates: true });
+      const imgFolderUri = `${FileSystem.documentDirectory}camera/images/`;
+      const vidFolderUri = `${FileSystem.documentDirectory}camera/videos/`;
+      const imgFolderInfo = await FileSystem.getInfoAsync(imgFolderUri);
+      const vidFolderInfo = await FileSystem.getInfoAsync(vidFolderUri);
+      if (!imgFolderInfo.exists) {
+        await FileSystem.makeDirectoryAsync(imgFolderUri, { intermediates: true });
+      }
+      if (!vidFolderInfo.exists) {
+        await FileSystem.makeDirectoryAsync(vidFolderUri, { intermediates: true });
       }
       setLoaded(true);
     };
